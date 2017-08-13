@@ -1,15 +1,10 @@
 #ifndef COMMON_DEFINITIONS_HEADER
 #define COMMON_DEFINITIONS_HEADER
 
-#include <string>
-#include <vector>
-#include <memory>
 #include <iostream>
 
-class IComponent{
-    public:
-        virtual ~IComponent() = 0;
-};
+#include "Entity.h"
+#include "IComponent.h"
 
 class RenderComponent : public IComponent
 {
@@ -19,25 +14,11 @@ class RenderComponent : public IComponent
         int i;
 };
 
-class Entity{
-    public:
-        Entity(std::string aName)
-            : name(aName){};
-
-        std::vector<IComponent*> components;
-
-    private:
-        std::string name;
-};
-
 class RenderSystem
 {
     public:
         void Execute(const Entity& anEntity) const;
 };
-
-
-IComponent::~IComponent(){}
 
 void RenderSystem::Execute(const Entity& anEntity) const
 {
