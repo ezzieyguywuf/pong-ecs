@@ -13,7 +13,18 @@ int main(int argc, char ** argv) {
     sf::RenderWindow rWindow(sf::VideoMode(640, 480), "SFML Pong Demo");
 
     RenderSystem renderer(&rWindow);
+    sf::Event event;
+    while(rWindow.isOpen())
+    {
+        while (rWindow.pollEvent(event))
+        {
+            if (event.type == sf::Event::EventType::Closed)
+            {
+                rWindow.close();
+            }
+        }
+        renderer.Execute(ball);
+    }
 
-    renderer.Execute(ball);
     return 0;
 }
