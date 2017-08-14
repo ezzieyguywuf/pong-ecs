@@ -1,5 +1,6 @@
 #include "Entity.h"
 #include "Common.h"
+#include "Display.h"
 #include "SFML/Graphics.hpp"
 
 int main(int argc, char ** argv) {
@@ -11,6 +12,7 @@ int main(int argc, char ** argv) {
     ball.components.push_back(&rComp);
 
     sf::RenderWindow rWindow(sf::VideoMode(640, 480), "SFML Pong Demo");
+    Display display(rWindow);
 
     ISystem* renderer = new RenderSystem(&rWindow);
     sf::Event event;
