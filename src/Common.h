@@ -29,6 +29,8 @@ class RenderSystem
 void RenderSystem::Execute(const Entity& anEntity) const
 {
     const RenderComponent* component = static_cast<const RenderComponent*>(anEntity.components[0]);
+    rTarget->clear();
+    rTarget->draw(*(component->toDraw));
 }
 
 #endif //COMMON_DEFINITIONS_HEADER

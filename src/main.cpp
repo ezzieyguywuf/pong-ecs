@@ -24,6 +24,7 @@ int main(int argc, char ** argv) {
             }
         }
         renderer.Execute(ball);
+        rWindow.display();
     }
 
     return 0;
