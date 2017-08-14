@@ -12,9 +12,9 @@ target_link_libraries(pong
     #SFMLComponentFactory
     #engine
     #Component_RenderSFML
-    #sfml-graphics
-    #sfml-window
-    #sfml-system
+    sfml-graphics
+    sfml-window
+    sfml-system
 )
 
 #add_library(SFMLComponentFactory_Main "SFMLComponentFactory.cpp")
