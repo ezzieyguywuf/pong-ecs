@@ -19,11 +19,11 @@ class RenderComponent : public IComponent
 class RenderSystem
 {
     public:
-        RenderSystem(sf::RenderTarget* target)
+        RenderSystem(sf::RenderWindow* target)
             : rTarget(target){};
         void Execute(const Entity& anEntity) const;
 
-        sf::RenderTarget* rTarget;
+        sf::RenderWindow* rTarget;
 };
 
 void RenderSystem::Execute(const Entity& anEntity) const
@@ -31,6 +31,7 @@ void RenderSystem::Execute(const Entity& anEntity) const
     const RenderComponent* component = static_cast<const RenderComponent*>(anEntity.components[0]);
     rTarget->clear();
     rTarget->draw(*(component->toDraw));
+    rTarget->display();
 }
 
 #endif //COMMON_DEFINITIONS_HEADER
