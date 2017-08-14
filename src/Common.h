@@ -6,6 +6,7 @@
 
 #include "Entity.h"
 #include "IComponent.h"
+#include "ISystem.h"
 
 class RenderComponent : public IComponent
 {
@@ -16,7 +17,7 @@ class RenderComponent : public IComponent
         sf::Drawable* toDraw;
 };
 
-class RenderSystem
+class RenderSystem : public ISystem
 {
     public:
         RenderSystem(sf::RenderWindow* target)
