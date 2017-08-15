@@ -6,8 +6,10 @@
 namespace ecs{
     class IComponent{
         public:
-            static ComponentID nextID();
             virtual ComponentID getID() = 0;
+
+        protected:
+            static ComponentID nextID();
     };
 
     template <class T>

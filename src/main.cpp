@@ -7,6 +7,8 @@
 #include "ecs/Manager.h"
 #include <memory>
 
+std::vector<ComponentID> RenderSystem::ids(RenderComponent::sGetID());
+
 int main(int argc, char ** argv) {
     ecs::Manager manager;
 
@@ -18,7 +20,7 @@ int main(int argc, char ** argv) {
     sf::RenderWindow rWindow(sf::VideoMode(640, 480), "SFML Pong Demo");
     Display display(rWindow);
 
-    ISystem* renderer = new RenderSystem(&rWindow);
+    ecs::ISystem* renderer = new RenderSystem(&rWindow, manager);
 
     Engine engine(display);
     engine.start();

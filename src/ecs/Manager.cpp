@@ -4,11 +4,12 @@
 #include <algorithm>
 // for back_inserter
 #include <iterator>
-// for swap
+// for swap and make_pair
 #include <utility>
 
 using ecs::Manager;
 using ecs::Entity;
+using ecs::IComponent;
 
 Manager::Manager()
     : nEntities(nullEntity)
@@ -16,17 +17,32 @@ Manager::Manager()
 
 Entity Manager::makeEntity(std::unique_ptr<IComponent> component)
 {
-    Entity id = ++nEntities;
-    std::vector<std::unique_ptr<IComponent>> row;
-    row.push_back(std::move(component));
-    entityMap[id] = std::move(row);
+    Entity entity = ++nEntities;
+    this->addComponent(entity, std::move(component));
+    return entity;
 }
 
-Entity Manager::makeEntity(std::vector<std::unique_ptr<IComponent>> components)
+//Entity Manager::makeEntity(std::vector<std::unique_ptr<IComponent>> components)
+//{
+    //Entity entity = ++nEntities;
+    //this->addComponents(entity, std::move(components));
+    //return entity;
+//}
+
+void Manager::addComponent(const Entity entity, std::unique_ptr<IComponent> component)
 {
-    Entity id = ++nEntities;
-    entityMap[id] = std::move(components);
+    std::map<ComponentID, std::unique_ptr<IComponent>> inner;
+    inner.insert(std::make_pair(component->getID(), std::move(component)));
+    entityMap.insert(std::make_pair(entity, std::move(inner)));
 }
+
+//void Manager::addComponents(const Entity entity, std::vector<std::unique_ptr<IComponent>> components)
+//{
+    //for (auto component : components)
+    //{
+        //this->addComponent(entity, std::move(component));
+    //}
+//}
 
 std::vector<Entity> Manager::getEntities(const std::vector<ComponentID>& ids) const
 {
@@ -42,4 +58,9 @@ std::vector<Entity> Manager::getEntities(const std::vector<ComponentID>& ids) co
         std::swap(result, buffer);
     }
     return result;
+}
+
+IComponent& Manager::getComponent(const Entity entity, const ComponentID cID)
+{
+    return *(entityMap[entity][cID]);
 }

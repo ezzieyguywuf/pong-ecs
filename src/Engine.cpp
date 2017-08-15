@@ -2,13 +2,22 @@
 
 //#include <SFML/System.hpp>
 
+Engine::Engine(Display& aDisp, unsigned int rate)
+    : myDisplay(aDisp),
+      TICK_RATE(rate)
+{}
+
+Engine::~Engine()
+{}
+
 void Engine::start()
 {
     sf::Clock clock;
 
-    // one 'tick' per 0.01 seconds
     unsigned int elapsed = 0;
-    unsigned int time_step = 10000;
+    // TICK_RATE is ticks/sec. time_step is "amount of time passed per tick", in other
+    // words 1/TICK_RATE. Finally, we must convert from sec/ticks to microsecs/tick
+    unsigned int time_step = 1000000.0/TICK_RATE;
     unsigned int accumulated = 0;
 
     while (myDisplay.isOpen())
@@ -40,19 +49,46 @@ void Engine::start()
     }
 }
 
+void Engine::addSystem(std::unique_ptr<ecs::ISystem> aSystem, const When when)
+{
+    switch (when){
+        case When::Before:
+            systemsBefore.push_back(std::move(aSystem));
+            break;
+        case When::During:
+            systemsDuring.push_back(std::move(aSystem));
+            break;
+        case When::After:
+            systemsAfter.push_back(std::move(aSystem));
+            break;
+    }
+}
+
+//-------------------------------------------------------
+//                  private methods
+//-------------------------------------------------------
+
+void Engine::processSystems(const std::vector<std::unique_ptr<ecs::ISystem>>& systems)
+{
+    for (const auto& system : systems)
+    {
+        system->Execute(); 
+    }
+}
+
 void Engine::Input()
 {
-    if (myDisplay.closeRequested())
-        myDisplay.close();
+    this->processSystems(this->systemsBefore);
 }
 
 void Engine::Update()
 {
+    this->processSystems(this->systemsDuring);
 }
 
 void Engine::Draw()
 {
-    //RenderSystem.Execute(anEntity);
+    this->processSystems(this->systemsAfter);
 }
 
 //void Engine::input()
