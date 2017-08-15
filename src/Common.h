@@ -22,15 +22,20 @@ class RenderSystem : public ecs::ISystem
     public:
         RenderSystem(sf::RenderWindow* target, ecs::Manager& aManager)
             : rTarget(target),
-              ISystem(aManager){};
-        const std::vector<ecs::ComponentID>& getComponentIDs() const{
+            ISystem(aManager){
+                if (ids.empty())
+                {
+                    ids.push_back(RenderComponent::sGetID());
+                }
+            };
+        const ecs::ComponentIDs& getComponentIDs() const{
             return ids;
         }
         void Execute() const override;
 
         sf::RenderWindow* rTarget;
     private:
-        static std::vector<ecs::ComponentID> ids;
+        static ecs::ComponentIDs ids;
 };
 
 

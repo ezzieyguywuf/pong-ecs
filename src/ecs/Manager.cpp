@@ -31,6 +31,8 @@ Entity Manager::makeEntity(ptrIComponent component)
 
 void Manager::addComponent(const Entity entity, ptrIComponent component)
 {
+    componentMap[component->getID()].insert(entity);
+
     std::map<ComponentID, ptrIComponent> inner;
     inner.insert(std::make_pair(component->getID(), std::move(component)));
     entityMap.insert(std::make_pair(entity, std::move(inner)));
@@ -50,7 +52,7 @@ ecs::Entities Manager::getEntities(const ComponentIDs& ids) const
     Entities buffer;
     for (auto id : ids){
         buffer.clear();
-        std::set<Entity> check = componentTable.at(id);
+        std::set<Entity> check = componentMap.at(id);
 
         std::set_intersection(result.begin(), result.end(),
                               check.begin(), check.end(),

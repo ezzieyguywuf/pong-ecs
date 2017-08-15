@@ -38,7 +38,7 @@ namespace ecs{
             std::map<Entity, std::map<ComponentID, std::unique_ptr<IComponent>>> entityMap;
 
             // Any component will have a list of associated entities stored here
-            std::map<ComponentID, std::set<Entity>> componentTable;
+            std::map<ComponentID, std::set<Entity>> componentMap;
     };
 };
 
