@@ -49,15 +49,18 @@ void Manager::addComponent(const Entity entity, ptrIComponent component)
 ecs::Entities Manager::getEntities(const ComponentIDs& ids) const
 {
     Entities result;
-    Entities buffer;
-    for (auto id : ids){
-        buffer.clear();
-        std::set<Entity> check = componentMap.at(id);
-
-        std::set_intersection(result.begin(), result.end(),
-                              check.begin(), check.end(),
-                              std::back_inserter(buffer));
-        std::swap(result, buffer);
+    for (auto& EntityData : entityMap){
+        ecs::ComponentIDs check;
+        for (auto& ComponentData : EntityData.second)
+        {
+            check.push_back(ComponentData.first);
+        }
+        if (std::includes(
+                    check.begin(), check.end(),
+                    ids.begin(), ids.end()))
+        {
+            result.push_back(EntityData.first);
+        }
     }
     return result;
 }

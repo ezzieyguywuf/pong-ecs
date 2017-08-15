@@ -20,7 +20,7 @@ int main(int argc, char ** argv) {
     Display display(rWindow);
 
     ecs::ISystem* renderer = new RenderSystem(&rWindow, manager);
-    //std::cout << "renderer->getComponentIDs() = " << renderer->getComponentIDs() << std::endl;
+    std::cout << "renderer->getComponentIDs() = " << renderer->getComponentIDs()[0] << std::endl;
     ecs::ptrISystem rPtr(renderer);
 
     Engine engine(display);
