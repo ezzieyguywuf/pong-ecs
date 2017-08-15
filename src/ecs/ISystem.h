@@ -2,11 +2,12 @@
 #define ISystem_HEADER
 
 #include "Entity.h"
-#include "ComponentTypes.h"
-#include "Manager.h"
+#include "IComponent.h"
 #include <vector>
 
+
 namespace ecs{
+    class Manager;
     class ISystem
     {
         public:

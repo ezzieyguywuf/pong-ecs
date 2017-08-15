@@ -3,7 +3,7 @@
 
 #include "Entity.h"
 #include "IComponent.h"
-#include "ComponentTypes.h"
+#include "Types.h"
 #include <string>
 #include <vector>
 #include <set>
@@ -18,14 +18,14 @@ namespace ecs{
             ~Manager(){};
 
             // make an entity with a single component
-            Entity makeEntity(std::unique_ptr<IComponent> component);
+            Entity makeEntity(ptrIComponent component);
             //Entity makeEntity(std::vector<std::unique_ptr<IComponent>> components);
             // add a component to the given Entity
-            void addComponent(const Entity entity, std::unique_ptr<IComponent> component);
-            void addComponents(const Entity entity, std::vector<std::unique_ptr<IComponent>> component);
+            void addComponent(const Entity entity, ptrIComponent component);
+            //void addComponents(const Entity entity, ptrIComponents component);
 
             // retrieve all entities that contain a set of components
-            std::vector<Entity> getEntities(const std::vector<ComponentID>& ids) const;
+            Entities getEntities(const ComponentIDs& ids) const;
             // retrieve the component from the entity.
             IComponent& getComponent(const Entity entity, const ComponentID cID);
 

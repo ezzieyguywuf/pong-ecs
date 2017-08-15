@@ -1,9 +1,9 @@
 #ifndef IComponent_HEADER
 #define IComponent_HEADER
 
-#include "ComponentTypes.h"
-
 namespace ecs{
+    typedef unsigned int ComponentID;
+
     class IComponent{
         public:
             virtual ComponentID getID() = 0;

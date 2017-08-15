@@ -7,7 +7,7 @@
 #include "ecs/Manager.h"
 #include <memory>
 
-std::vector<ComponentID> RenderSystem::ids(RenderComponent::sGetID());
+std::vector<ecs::ComponentID> RenderSystem::ids(RenderComponent::sGetID());
 
 int main(int argc, char ** argv) {
     ecs::Manager manager;

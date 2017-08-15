@@ -49,7 +49,7 @@ void Engine::start()
     }
 }
 
-void Engine::addSystem(std::unique_ptr<ecs::ISystem> aSystem, const When when)
+void Engine::addSystem(ecs::ptrISystem aSystem, const When when)
 {
     switch (when){
         case When::Before:
@@ -68,7 +68,7 @@ void Engine::addSystem(std::unique_ptr<ecs::ISystem> aSystem, const When when)
 //                  private methods
 //-------------------------------------------------------
 
-void Engine::processSystems(const std::vector<std::unique_ptr<ecs::ISystem>>& systems)
+void Engine::processSystems(const ecs::ptrISystems& systems)
 {
     for (const auto& system : systems)
     {

@@ -15,7 +15,7 @@ Manager::Manager()
     : nEntities(nullEntity)
 {}
 
-Entity Manager::makeEntity(std::unique_ptr<IComponent> component)
+Entity Manager::makeEntity(ptrIComponent component)
 {
     Entity entity = ++nEntities;
     this->addComponent(entity, std::move(component));
@@ -29,9 +29,9 @@ Entity Manager::makeEntity(std::unique_ptr<IComponent> component)
     //return entity;
 //}
 
-void Manager::addComponent(const Entity entity, std::unique_ptr<IComponent> component)
+void Manager::addComponent(const Entity entity, ptrIComponent component)
 {
-    std::map<ComponentID, std::unique_ptr<IComponent>> inner;
+    std::map<ComponentID, ptrIComponent> inner;
     inner.insert(std::make_pair(component->getID(), std::move(component)));
     entityMap.insert(std::make_pair(entity, std::move(inner)));
 }
@@ -44,10 +44,10 @@ void Manager::addComponent(const Entity entity, std::unique_ptr<IComponent> comp
     //}
 //}
 
-std::vector<Entity> Manager::getEntities(const std::vector<ComponentID>& ids) const
+ecs::Entities Manager::getEntities(const ComponentIDs& ids) const
 {
-    std::vector<Entity> result;
-    std::vector<Entity> buffer;
+    Entities result;
+    Entities buffer;
     for (auto id : ids){
         buffer.clear();
         std::set<Entity> check = componentTable.at(id);
