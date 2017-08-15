@@ -1,6 +1,6 @@
 #include "Engine.h"
 
-#include <SFML/System.hpp>
+//#include <SFML/System.hpp>
 
 void Engine::start()
 {
@@ -35,7 +35,7 @@ void Engine::start()
             this->Update();
             accumulated -= time_step;
         }
-        // This may take a 'long' time
+        //This may take a 'long' time
         this->Draw();
     }
 }

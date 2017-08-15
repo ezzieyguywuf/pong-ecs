@@ -4,11 +4,11 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
 
-#include "Entity.h"
-#include "IComponent.h"
-#include "ISystem.h"
+#include "ecs/Entity.h"
+#include "ecs/IComponent.h"
+#include "ecs/ISystem.h"
 
-class RenderComponent : public IComponent
+class RenderComponent : public ecs::Component<RenderComponent>
 {
     public:
         RenderComponent(sf::Drawable* drawable)
@@ -22,17 +22,16 @@ class RenderSystem : public ISystem
     public:
         RenderSystem(sf::RenderWindow* target)
             : rTarget(target){};
-        void Execute(const Entity& anEntity) const;
+        void Execute() const;
 
         sf::RenderWindow* rTarget;
 };
 
-void RenderSystem::Execute(const Entity& anEntity) const
+void RenderSystem::Execute() const
 {
-    const RenderComponent* component = static_cast<const RenderComponent*>(anEntity.components[0]);
-    rTarget->clear();
-    rTarget->draw(*(component->toDraw));
-    rTarget->display();
+    //rTarget->clear();
+    //rTarget->draw(*(component->toDraw));
+    //rTarget->display();
 }
 
 #endif //COMMON_DEFINITIONS_HEADER

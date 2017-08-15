@@ -10,14 +10,13 @@ target_link_libraries(display
 add_library(engine "Engine.cpp")
 target_link_libraries(engine display sfml-system)
 
-#add_library(SFMLComponentFactory "SFMLComponentFactory.cpp")
-#target_link_libraries(SFMLComponentFactory sfml-graphics)
+add_library(manager "ecs/Manager.cpp")
+
 
 add_executable(pong "main.cpp")
 target_link_libraries(pong
-    #SFMLComponentFactory
+    manager
     engine
-    #Component_RenderSFML
     sfml-graphics
     sfml-window
     sfml-system

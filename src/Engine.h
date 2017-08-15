@@ -1,9 +1,9 @@
 #ifndef Engine_HEADER
 #define Engine_HEADER
 
-#include "Entity.h"
-#include "ISystem.h"
-#include "IComponent.h"
+#include "ecs/Entity.h"
+//#include "ISystem.h"
+//#include "IComponent.h"
 #include "Display.h"
 
 class Engine
