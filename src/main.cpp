@@ -23,7 +23,7 @@ int main(int argc, char ** argv) {
     sf::CircleShape ballShape(15);
     ecs::ptrIComponent cPtr(new DrawableComponent(&ballShape));
     std::cout << "cPtr->getID() = " << cPtr->getID().name() << std::endl;
-    manager.makeEntity(std::move(cPtr));
+    ecs::Entity ball = manager.makeEntity(std::move(cPtr));
 
     sf::RenderWindow rWindow(sf::VideoMode(640, 480), "SFML Pong Demo");
     Display display(rWindow);
