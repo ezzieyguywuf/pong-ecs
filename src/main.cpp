@@ -1,8 +1,8 @@
 // current dir
 #include <Engine.h>
 #include <Display.h>
-#include <Components/RenderSFML.h>
-#include <Systems/RenderSFML.h>
+#include <Components/DrawableComponent.h>
+#include <Systems/RenderSystem.h>
 
 // local lib
 #include <SimpleECS/ISystem.h>
@@ -17,20 +17,20 @@
 #include <iostream>
 
 // intantiate static vars
-ecs::ComponentIDs sys::RenderSFML::ids;
+ecs::ComponentIDs RenderSystem::ids;
 
 int main(int argc, char ** argv) {
     ecs::Manager manager;
 
     sf::CircleShape ballShape(15);
-    ecs::ptrIComponent cPtr(new comp::RenderSFML(&ballShape));
+    ecs::ptrIComponent cPtr(new DrawableComponent(&ballShape));
     std::cout << "cPtr->getID() = " << cPtr->getID() << std::endl;
     manager.makeEntity(std::move(cPtr));
 
     sf::RenderWindow rWindow(sf::VideoMode(640, 480), "SFML Pong Demo");
     Display display(rWindow);
 
-    ecs::ISystem* renderer = new sys::RenderSFML(&rWindow, manager);
+    ecs::ISystem* renderer = new RenderSystem(&rWindow, manager);
     std::cout << "renderer->getComponentIDs() = " << renderer->getComponentIDs()[0] << std::endl;
     ecs::ptrISystem rPtr(renderer);
 
