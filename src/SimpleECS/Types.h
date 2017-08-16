@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <memory>
+#include <typeindex>
 
 using std::vector;
 using std::unique_ptr;
@@ -12,6 +13,7 @@ namespace ecs{
     class ISystem;
 
     // ComponentIDs is defined in IComponent.h
+    typedef std::type_index ComponentID;
     typedef vector<ComponentID> ComponentIDs;
 
     // We'll handle interfaces as unique_ptr

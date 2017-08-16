@@ -24,14 +24,14 @@ int main(int argc, char ** argv) {
 
     sf::CircleShape ballShape(15);
     ecs::ptrIComponent cPtr(new DrawableComponent(&ballShape));
-    std::cout << "cPtr->getID() = " << cPtr->getID() << std::endl;
+    std::cout << "cPtr->getID() = " << cPtr->getID().name() << std::endl;
     manager.makeEntity(std::move(cPtr));
 
     sf::RenderWindow rWindow(sf::VideoMode(640, 480), "SFML Pong Demo");
     Display display(rWindow);
 
     ecs::ISystem* renderer = new RenderSystem(&rWindow, manager);
-    std::cout << "renderer->getComponentIDs() = " << renderer->getComponentIDs()[0] << std::endl;
+    std::cout << "renderer->getComponentIDs() = " << renderer->getComponentIDs()[0].name() << std::endl;
     ecs::ptrISystem rPtr(renderer);
 
     Engine engine(display);

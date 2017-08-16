@@ -1,38 +1,42 @@
 #ifndef IComponent_HEADER
 #define IComponent_HEADER
 
+#include <SimpleECS/Types.h>
+
 namespace ecs{
-    typedef unsigned int ComponentID;
+    // ----- Declarations -----
 
     class IComponent{
         public:
-            virtual ComponentID getID() = 0;
-
-        protected:
-            static ComponentID nextID();
+            virtual const ComponentID getID() const = 0;
     };
 
     template <class T>
     class Component : public IComponent{
         public:
-            static ComponentID sGetID(){
-                return sID;
+            static std::type_index sGetID()//;
+            {
+                return std::type_index(typeid(T));
             }
-            ComponentID getID(){
-                return sID;
+            const std::type_index getID() const override//;
+            {
+                return std::type_index(typeid(T));
             }
-        private:
-            static ComponentID sID;
     };
 
+    // ----- Definitions -----
     
-    inline ComponentID IComponent::nextID() {
-        static ComponentID sNextID = 0;
-        return sNextID++;
-    }
+    //template <class T>
+    //inline std::type_index Component<T>::getID() const
+    //{
+        //return std::type_index(typeid(T));
+    //}
 
-    template <class T>
-    ComponentID Component<T>::sID = IComponent::nextID();
-}
+    //template <class T>
+    //inline const std::type_index sGetID()
+    //{
+        //return std::type_index(typeid(T));
+    //}
+};
 
 #endif //IComponent_HEADER
