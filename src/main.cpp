@@ -16,8 +16,6 @@
 #include <memory>
 #include <iostream>
 
-// intantiate static vars
-ecs::ComponentIDs RenderSystem::ids;
 
 int main(int argc, char ** argv) {
     ecs::Manager manager;

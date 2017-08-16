@@ -1,6 +1,9 @@
 #include <Systems/RenderSystem.h>
 #include <Components/DrawableComponent.h>
 
+// intantiate static vars
+ecs::ComponentIDs RenderSystem::ids;
+
 RenderSystem::RenderSystem(sf::RenderWindow* target, ecs::Manager& aManager)
     : rTarget(target),
       ecs::ISystem(aManager) {
