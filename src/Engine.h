@@ -1,12 +1,13 @@
 #ifndef Engine_HEADER
 #define Engine_HEADER
 
-#include "ecs/ISystem.h"
-#include "ecs/Manager.h"
-#include "ecs/Types.h"
-#include "Display.h"
+#include <SimpleECS/ISystem.h>
+#include <SimpleECS/Manager.h>
+#include <SimpleECS/Types.h>
 #include <vector>
 #include <memory>
+
+#include "Display.h"
 
 enum class When{
     Before,

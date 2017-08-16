@@ -19,4 +19,3 @@ link_directories(
 )
 
 add_subdirectory("src")
-
