@@ -24,7 +24,7 @@ float HEIGHT = 480;
 
 using std::move;
 
-void createEntities(ecs::Manager& manager)
+void createEntities(ecs::Manager& manager, sf::RenderWindow& rWindow)
 {
     ComponentFactory factory;
     // Make our entities and add the appropriate components.
@@ -34,18 +34,22 @@ void createEntities(ecs::Manager& manager)
         manager.addComponent(ball, move(factory.makePosition(WIDTH/2.0, 10)));
         manager.addComponent(ball, move(factory.makeSpeed(0,-20)));
         manager.addComponent(ball, move(factory.makeBoundingBox(20, 20)));
+        manager.addComponent(ball, move(factory.makeRenderWindow(rWindow)));
     ecs::Entity topWall = manager.makeEntity();
         manager.addComponent(topWall, move(factory.makeRectangleShape(WIDTH,10)));
         manager.addComponent(topWall, move(factory.makePosition(0.0, 0.0)));
         manager.addComponent(topWall, move(factory.makeBoundingBox(WIDTH, 10)));
         manager.addComponent(topWall, move(factory.makeSpeed(0.0, 0.0)));
+        manager.addComponent(topWall, move(factory.makeRenderWindow(rWindow)));
     ecs::Entity botWall = manager.makeEntity();
         manager.addComponent(botWall, move(factory.makeRectangleShape(WIDTH,10)));
         manager.addComponent(botWall, move(factory.makePosition(0.0, HEIGHT-10)));
         manager.addComponent(botWall, move(factory.makeBoundingBox(WIDTH, 10)));
         manager.addComponent(botWall, move(factory.makeSpeed(0.0, 0.0)));
+        manager.addComponent(botWall, move(factory.makeRenderWindow(rWindow)));
     ecs::Entity posText = manager.makeEntity();
-        manager.addComponent(posText, move(factory.makeTextSink("/usr/share/fonts/dejavu/DejaVuSansMono.ttf")));
+        manager.addComponent(posText, move(factory.makeTextShape("/usr/share/fonts/dejavu/DejaVuSansMono.ttf")));
+        manager.addComponent(posText, move(factory.makeRenderWindow(rWindow)));
 }
 
 int main(int argc, char ** argv) {
@@ -57,7 +61,7 @@ int main(int argc, char ** argv) {
     Engine engine(display);
 
     // make our entities and add components
-    createEntities(manager);
+    createEntities(manager, rWindow);
 
     // Create our systems
     ecs::ptrISystem renderer(new RenderSystem(&rWindow, manager));
