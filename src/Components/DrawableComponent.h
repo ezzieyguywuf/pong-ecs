@@ -4,7 +4,7 @@
 #include <SimpleECS/IComponent.h>
 #include <SFML/Graphics.hpp>
 
-class DrawableComponent : public ecs::Component<DrawableComponent>
+class DrawableComponent : public ecs::IComponent_<DrawableComponent>
 {
     public:
         DrawableComponent(sf::Drawable* drawable)

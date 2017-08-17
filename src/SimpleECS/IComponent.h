@@ -12,7 +12,7 @@ namespace ecs{
     };
 
     template <class T>
-    class Component : public IComponent{
+    class IComponent_ : public IComponent{
         public:
             static std::type_index sGetID()//;
             {
