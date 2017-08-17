@@ -1,11 +1,12 @@
 // current dir
 #include <Engine.h>
 #include <Display.h>
-#include <Components/ShapeComponent.h>
-#include <Components/PositionComponent.h>
-#include <Components/SpeedComponent.h>
+
+#include <Components/ComponentFactory.h>
+
 #include <Systems/RenderSystem.h>
 #include <Systems/PhysicsSystem.h>
+#include <Systems/SimpleCollisionSystem.h>
 
 // local lib
 #include <SimpleECS/ISystem.h>
@@ -13,7 +14,6 @@
 #include <SimpleECS/Manager.h>
 
 // semi-local lib
-#include <SFML/Graphics.hpp>
 
 // system lib
 #include <memory>
@@ -21,36 +21,32 @@
 
 int main(int argc, char ** argv) {
     ecs::Manager manager;
+    ComponentFactory factory;
     unsigned int width = 640;
     unsigned int height = 480;
 
-    // Make our components
-    //     ball
-    sf::CircleShape ballCircleShape(15);
-    ecs::ptrIComponent ballShape(new ShapeComponent(ballCircleShape));
-    ecs::ptrIComponent ballPosition(new PositionComponent(0,0));
-    ecs::ptrIComponent ballSpeed(new SpeedComponent(0.1,0.1));
-    //     top wall
-    sf::Vector2f size(width, 10);
-    sf::RectangleShape wall1RectShape(size);
-    ecs::ptrIComponent wall1Shape(new ShapeComponent(wall1RectShape));
-    ecs::ptrIComponent wall1Pos(new PositionComponent(0,0));
-    //     bot wall
-    sf::RectangleShape wall2RectShape(size);
-    ecs::ptrIComponent wall2Shape(new ShapeComponent(wall2RectShape));
-    ecs::ptrIComponent wall2Pos(new PositionComponent(0, height-10));
-
     // Make our entities and add the appropriate components.
     ecs::Entity ball = manager.makeEntity();
-        manager.addComponent(ball, std::move(ballShape));
-        manager.addComponent(ball, std::move(ballPosition));
-        manager.addComponent(ball, std::move(ballSpeed));
+        manager.addComponent(ball, std::move(factory.makeCircleShape(10)));
+        manager.addComponent(ball, std::move(factory.makePosition(width/2.0, 10)));
+        manager.addComponent(ball, std::move(factory.makeSpeed(0,-20)));
+        manager.addComponent(ball, std::move(factory.makeBoundingBox(20, 20)));
     ecs::Entity topWall = manager.makeEntity();
-        manager.addComponent(topWall, std::move(wall1Shape));
-        manager.addComponent(topWall, std::move(wall1Pos));
+        manager.addComponent(topWall, std::move(factory.makeRectangleShape(width,10)));
+        manager.addComponent(topWall, std::move(factory.makePosition(0.0, 0.0)));
+        manager.addComponent(topWall, std::move(factory.makeBoundingBox(width, 10)));
+        manager.addComponent(topWall, std::move(factory.makeSpeed(0.0, 0.0)));
     ecs::Entity botWall = manager.makeEntity();
-        manager.addComponent(botWall, std::move(wall2Shape));
-        manager.addComponent(botWall, std::move(wall2Pos));
+        manager.addComponent(botWall, std::move(factory.makeRectangleShape(width,10)));
+        manager.addComponent(botWall, std::move(factory.makePosition(0.0, 0.0)));
+        manager.addComponent(botWall, std::move(factory.makeBoundingBox(width, 10)));
+        manager.addComponent(botWall, std::move(factory.makeSpeed(0.0, 0.0)));
+    //ecs::Entity text = manager.makeEntity();
+        //manager.addComponent(text, std::move(ballPosFont));
+        //manager.addComponent(text, std::move(ballPosText));
+    //ecs::ptrIComponent posText(new DisplayTextComponent(ball, text));
+    //ecs::Entity textView = manager.makeEntity();
+        //manager.addComponent(textView, std::move(posText));
 
     // Instantiate our game engine
     sf::RenderWindow rWindow(sf::VideoMode(width, height), "SFML Pong Demo");
@@ -60,9 +56,11 @@ int main(int argc, char ** argv) {
     // Create our systems
     ecs::ptrISystem renderer(new RenderSystem(&rWindow, manager));
     ecs::ptrISystem mover(new PhysicsSystem(manager));
+    ecs::ptrISystem collision_detector(new SimpleCollisionSystem(manager));
 
     // add systems to the game engine
     engine.addSystem(std::move(mover), When::During);
+    engine.addSystem(std::move(collision_detector), When::During);
     engine.addSystem(std::move(renderer), When::After);
 
     // start the main loop

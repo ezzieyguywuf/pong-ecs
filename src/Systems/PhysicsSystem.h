@@ -1,6 +1,7 @@
 #ifndef PhysicsSystem_HEADER
 #define PhysicsSystem_HEADER
 
+#include <SimpleECS/Types.h>
 #include <SimpleECS/Manager.h>
 #include <SimpleECS/ISystem.h>
 

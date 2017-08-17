@@ -3,14 +3,15 @@
 
 #include <SimpleECS/IComponent.h>
 #include <SFML/Graphics.hpp>
+#include <memory>
 
 class ShapeComponent : public ecs::IComponent_<ShapeComponent>
 {
     public:
-        ShapeComponent(sf::Shape& aShape)
-            : shape(aShape){};
+        ShapeComponent(std::unique_ptr<sf::Shape> aShape)
+            : shape(std::move(aShape)){};
 
-        sf::Shape& shape;
+        std::unique_ptr<sf::Shape> shape;
 };
 
 #endif //ShapeComponent_HEADER

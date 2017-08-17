@@ -3,11 +3,11 @@
 
 #include "Entity.h"
 #include "IComponent.h"
+#include <SimpleECS/Manager.h>
 #include <vector>
 
 
 namespace ecs{
-    class Manager;
     class ISystem
     {
         public:

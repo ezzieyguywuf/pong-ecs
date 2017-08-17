@@ -23,8 +23,8 @@ void RenderSystem::Execute() const
         ecs::IComponent& temp2 = manager.getComponent(entity, PositionComponent::sGetID());
         PositionComponent& pos = static_cast<PositionComponent&>(temp2);
 
-        target.shape.setPosition(pos.x, pos.y);
-        rTarget->draw(target.shape);
+        target.shape->setPosition(pos.x, pos.y);
+        rTarget->draw(*(target.shape));
     }
     rTarget->display();
 }
