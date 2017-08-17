@@ -11,7 +11,6 @@
 #include <SimpleECS/ISystem.h>
 #include <SimpleECS/IComponent.h>
 #include <SimpleECS/Manager.h>
-#include <Utilities/Vector.h>
 
 // semi-local lib
 #include <SFML/Graphics.hpp>
