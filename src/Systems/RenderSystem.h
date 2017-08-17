@@ -7,16 +7,14 @@
 
 #include <SFML/Graphics.hpp>
 
-class RenderSystem : public ecs::ISystem
+class RenderSystem : public ecs::ISystem_<RenderSystem>
 {
     public:
         RenderSystem(sf::RenderWindow* target, ecs::Manager& aManager);
-        const ecs::ComponentIDs& getComponentIDs() const;
         void Execute() const override;
 
-        sf::RenderWindow* rTarget;
     private:
-        static ecs::ComponentIDs ids;
+        sf::RenderWindow* rTarget;
 };
 
 #endif //RenderSystem_System_HEADER
