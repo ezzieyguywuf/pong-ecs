@@ -30,3 +30,8 @@ ptrIComponent ComponentFactory::makeBoundingBox(float width, float height)
 {
     return ptrIComponent(new BoundingBoxComponent(width, height));
 }
+
+ptrIComponent ComponentFactory::makeTextSink(std::string filename)
+{
+    return ptrIComponent(new TextSinkComponent(filename));
+}

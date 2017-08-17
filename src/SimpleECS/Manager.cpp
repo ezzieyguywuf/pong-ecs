@@ -41,6 +41,15 @@ void Manager::addComponent(const Entity entity, ptrIComponent component)
     entityMap[entity][component->getID()] = std::move(component);
 }
 
+bool Manager::hasComponent(const Entity entity, const ComponentID id) const
+{
+    auto& mapItem = entityMap.at(entity);
+    if (mapItem.find(id) != mapItem.end()){
+        return true;
+    }
+    return false;
+}
+
 //void Manager::addComponents(const Entity entity, std::vector<std::unique_ptr<IComponent>> components)
 //{
     //for (auto component : components)

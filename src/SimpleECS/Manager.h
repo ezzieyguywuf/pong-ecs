@@ -31,6 +31,8 @@ namespace ecs{
             // retrieve the component from the entity.
             template<typename T>
             T& getComponent(const Entity entity);
+            // check if an entity contains a component
+            bool hasComponent(const Entity entity, const ComponentID id) const;
 
         private:
             // The number of entities being managed. Each new Entity will havue a value of
