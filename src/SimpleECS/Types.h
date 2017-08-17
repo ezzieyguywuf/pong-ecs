@@ -2,10 +2,12 @@
 #define ECS_Types_HEADER
 
 #include <vector>
+#include <set>
 #include <memory>
 #include <typeindex>
 
 using std::vector;
+using std::set;
 using std::unique_ptr;
 
 namespace ecs{
@@ -14,7 +16,7 @@ namespace ecs{
 
     // ComponentIDs is defined in IComponent.h
     typedef std::type_index ComponentID;
-    typedef vector<ComponentID> ComponentIDs;
+    typedef set<ComponentID> ComponentIDs;
 
     // We'll handle interfaces as unique_ptr
     typedef unique_ptr<IComponent> ptrIComponent;

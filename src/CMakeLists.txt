@@ -14,6 +14,7 @@ add_executable(pong "main.cpp")
 target_link_libraries(pong
     manager
     RenderSystem
+    PhysicsSystem
     engine
     sfml-graphics
     sfml-window

@@ -15,9 +15,14 @@ Manager::Manager()
     : nEntities(nullEntity)
 {}
 
+Entity Manager::makeEntity()
+{
+    return ++nEntities;
+}
+
 Entity Manager::makeEntity(ptrIComponent component)
 {
-    Entity entity = ++nEntities;
+    Entity entity = this->makeEntity();
     this->addComponent(entity, std::move(component));
     return entity;
 }
@@ -31,11 +36,9 @@ Entity Manager::makeEntity(ptrIComponent component)
 
 void Manager::addComponent(const Entity entity, ptrIComponent component)
 {
-    componentMap[component->getID()].insert(entity);
+    //componentMap[component->getID()].insert(entity);
 
-    std::map<ComponentID, ptrIComponent> inner;
-    inner.insert(std::make_pair(component->getID(), std::move(component)));
-    entityMap.insert(std::make_pair(entity, std::move(inner)));
+    entityMap[entity][component->getID()] = std::move(component);
 }
 
 //void Manager::addComponents(const Entity entity, std::vector<std::unique_ptr<IComponent>> components)
@@ -53,7 +56,7 @@ ecs::Entities Manager::getEntities(const ComponentIDs& ids) const
         ecs::ComponentIDs check;
         for (auto& ComponentData : EntityData.second)
         {
-            check.push_back(ComponentData.first);
+            check.insert(ComponentData.first);
         }
         if (std::includes(
                     check.begin(), check.end(),

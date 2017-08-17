@@ -17,6 +17,8 @@ namespace ecs{
             Manager();
             ~Manager(){};
 
+            //  make an empty entity
+            Entity makeEntity();
             // make an entity with a single component
             Entity makeEntity(ptrIComponent component);
             //Entity makeEntity(std::vector<std::unique_ptr<IComponent>> components);
@@ -38,7 +40,7 @@ namespace ecs{
             std::map<Entity, std::map<ComponentID, std::unique_ptr<IComponent>>> entityMap;
 
             // Any component will have a list of associated entities stored here
-            std::map<ComponentID, std::set<Entity>> componentMap;
+            //std::map<ComponentID, std::set<Entity>> componentMap;
     };
 };
 

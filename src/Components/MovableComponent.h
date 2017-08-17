@@ -8,8 +8,12 @@ class MovableComponent : public ecs::IComponent_<MovableComponent>
 {
     public:
         MovableComponent();
-        MovableComponent(Vector loc);
-        MovableComponent(Vector loc, Vector speed);
+        MovableComponent(Vector loc)
+            : location(loc),
+              speed(Vector(0,0)){};
+        MovableComponent(Vector loc, Vector aSpeed)
+            : location(loc),
+              speed(aSpeed){};
         ~MovableComponent(){};
 
         Vector location;
