@@ -19,13 +19,11 @@
 #include <memory>
 #include <iostream>
 
-int main(int argc, char ** argv) {
-    ecs::Manager manager;
+void createEntities(Manager& manager)
+{
     ComponentFactory factory;
-    unsigned int width = 640;
-    unsigned int height = 480;
-
     // Make our entities and add the appropriate components.
+    // NOTE: this could be pulled, theoretically, from some sort of plain text file.
     ecs::Entity ball = manager.makeEntity();
         manager.addComponent(ball, std::move(factory.makeCircleShape(10)));
         manager.addComponent(ball, std::move(factory.makePosition(width/2.0, 10)));
@@ -38,20 +36,23 @@ int main(int argc, char ** argv) {
         manager.addComponent(topWall, std::move(factory.makeSpeed(0.0, 0.0)));
     ecs::Entity botWall = manager.makeEntity();
         manager.addComponent(botWall, std::move(factory.makeRectangleShape(width,10)));
-        manager.addComponent(botWall, std::move(factory.makePosition(0.0, 0.0)));
+        manager.addComponent(botWall, std::move(factory.makePosition(0.0, height-10)));
         manager.addComponent(botWall, std::move(factory.makeBoundingBox(width, 10)));
         manager.addComponent(botWall, std::move(factory.makeSpeed(0.0, 0.0)));
-    //ecs::Entity text = manager.makeEntity();
-        //manager.addComponent(text, std::move(ballPosFont));
-        //manager.addComponent(text, std::move(ballPosText));
-    //ecs::ptrIComponent posText(new DisplayTextComponent(ball, text));
-    //ecs::Entity textView = manager.makeEntity();
-        //manager.addComponent(textView, std::move(posText));
+}
+
+int main(int argc, char ** argv) {
+    ecs::Manager manager;
+    unsigned int width = 640;
+    unsigned int height = 480;
 
     // Instantiate our game engine
     sf::RenderWindow rWindow(sf::VideoMode(width, height), "SFML Pong Demo");
     Display display(rWindow);
     Engine engine(display);
+
+    // make our entities and add components
+    createEntities(manager);
 
     // Create our systems
     ecs::ptrISystem renderer(new RenderSystem(&rWindow, manager));
