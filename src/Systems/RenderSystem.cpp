@@ -17,11 +17,8 @@ void RenderSystem::Execute() const
     rTarget->clear();
     for (auto entity : manager.getEntities(this->getComponentIDs()))
     {
-        ecs::IComponent& temp1 = manager.getComponent(entity, ShapeComponent::sGetID());
-        ShapeComponent& target = static_cast<ShapeComponent&>(temp1);
-
-        ecs::IComponent& temp2 = manager.getComponent(entity, PositionComponent::sGetID());
-        PositionComponent& pos = static_cast<PositionComponent&>(temp2);
+        ShapeComponent& target = manager.getComponent<ShapeComponent>(entity);
+        PositionComponent& pos = manager.getComponent<PositionComponent>(entity);
 
         target.shape->setPosition(pos.x, pos.y);
         rTarget->draw(*(target.shape));

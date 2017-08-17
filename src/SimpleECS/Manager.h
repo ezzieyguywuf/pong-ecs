@@ -29,7 +29,8 @@ namespace ecs{
             // retrieve all entities that contain a set of components
             Entities getEntities(const ComponentIDs& ids) const;
             // retrieve the component from the entity.
-            IComponent& getComponent(const Entity entity, const ComponentID cID);
+            template<typename T>
+            T& getComponent(const Entity entity);
 
         private:
             // The number of entities being managed. Each new Entity will havue a value of
@@ -42,6 +43,12 @@ namespace ecs{
             // Any component will have a list of associated entities stored here
             //std::map<ComponentID, std::set<Entity>> componentMap;
     };
+
+    template <typename T>
+    T& Manager::getComponent(const Entity entity)
+    {
+        return static_cast<T&>(*(entityMap[entity][T::sGetID()]));
+    }
 };
 
 #endif //Manager_HEADER

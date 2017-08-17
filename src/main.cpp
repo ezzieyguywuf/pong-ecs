@@ -19,35 +19,36 @@
 #include <memory>
 #include <iostream>
 
-void createEntities(Manager& manager)
+float WIDTH = 640;
+float HEIGHT = 480;
+
+void createEntities(ecs::Manager& manager)
 {
     ComponentFactory factory;
     // Make our entities and add the appropriate components.
     // NOTE: this could be pulled, theoretically, from some sort of plain text file.
     ecs::Entity ball = manager.makeEntity();
         manager.addComponent(ball, std::move(factory.makeCircleShape(10)));
-        manager.addComponent(ball, std::move(factory.makePosition(width/2.0, 10)));
+        manager.addComponent(ball, std::move(factory.makePosition(WIDTH/2.0, 10)));
         manager.addComponent(ball, std::move(factory.makeSpeed(0,-20)));
         manager.addComponent(ball, std::move(factory.makeBoundingBox(20, 20)));
     ecs::Entity topWall = manager.makeEntity();
-        manager.addComponent(topWall, std::move(factory.makeRectangleShape(width,10)));
+        manager.addComponent(topWall, std::move(factory.makeRectangleShape(WIDTH,10)));
         manager.addComponent(topWall, std::move(factory.makePosition(0.0, 0.0)));
-        manager.addComponent(topWall, std::move(factory.makeBoundingBox(width, 10)));
+        manager.addComponent(topWall, std::move(factory.makeBoundingBox(WIDTH, 10)));
         manager.addComponent(topWall, std::move(factory.makeSpeed(0.0, 0.0)));
     ecs::Entity botWall = manager.makeEntity();
-        manager.addComponent(botWall, std::move(factory.makeRectangleShape(width,10)));
-        manager.addComponent(botWall, std::move(factory.makePosition(0.0, height-10)));
-        manager.addComponent(botWall, std::move(factory.makeBoundingBox(width, 10)));
+        manager.addComponent(botWall, std::move(factory.makeRectangleShape(WIDTH,10)));
+        manager.addComponent(botWall, std::move(factory.makePosition(0.0, HEIGHT-10)));
+        manager.addComponent(botWall, std::move(factory.makeBoundingBox(WIDTH, 10)));
         manager.addComponent(botWall, std::move(factory.makeSpeed(0.0, 0.0)));
 }
 
 int main(int argc, char ** argv) {
     ecs::Manager manager;
-    unsigned int width = 640;
-    unsigned int height = 480;
 
     // Instantiate our game engine
-    sf::RenderWindow rWindow(sf::VideoMode(width, height), "SFML Pong Demo");
+    sf::RenderWindow rWindow(sf::VideoMode(WIDTH, HEIGHT), "SFML Pong Demo");
     Display display(rWindow);
     Engine engine(display);
 

@@ -31,14 +31,11 @@ void SimpleCollisionSystem::Execute() const
             if (entity1 == entity2 || std::find(found.begin(), found.end(), entity2) != found.end()){
                 continue;
             }
-            PositionComponent& pos1 = static_cast<PositionComponent&>(
-                    manager.getComponent(entity1, PositionComponent::sGetID()));
-            BoundingBoxComponent& bbox1 = static_cast<BoundingBoxComponent&>(
-                    manager.getComponent(entity1, BoundingBoxComponent::sGetID()));
-            PositionComponent& pos2 = static_cast<PositionComponent&>(
-                    manager.getComponent(entity2, PositionComponent::sGetID()));
-            BoundingBoxComponent& bbox2 = static_cast<BoundingBoxComponent&>(
-                    manager.getComponent(entity2, BoundingBoxComponent::sGetID()));
+            PositionComponent& pos1 = manager.getComponent<PositionComponent>(entity1);
+            BoundingBoxComponent& bbox1 = manager.getComponent<BoundingBoxComponent>(entity1);
+            PositionComponent& pos2 = manager.getComponent<PositionComponent>(entity2);
+            BoundingBoxComponent& bbox2 = manager.getComponent<BoundingBoxComponent>(entity2);
+
             float l1 = pos1.x;
             float r1 = l1 + bbox1.width;
             float t1 = pos1.y;
@@ -50,10 +47,8 @@ void SimpleCollisionSystem::Execute() const
             float b2 = pos2.y + bbox2.height;
 
             if (not (l2 < l1 || r2 > r1 || t2 > t1 || b2 < b1)){
-                SpeedComponent& speed1 = static_cast<SpeedComponent&>(
-                        manager.getComponent(entity1, SpeedComponent::sGetID()));
-                SpeedComponent& speed2 = static_cast<SpeedComponent&>(
-                        manager.getComponent(entity2, SpeedComponent::sGetID()));
+                SpeedComponent& speed1 = manager.getComponent<SpeedComponent>(entity1);
+                SpeedComponent& speed2 = manager.getComponent<SpeedComponent>(entity2);
                 found.push_back(entity1);
                 found.push_back(entity2);
                 if (l2 > l1 || r2 < r1){

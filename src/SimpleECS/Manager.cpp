@@ -68,7 +68,3 @@ ecs::Entities Manager::getEntities(const ComponentIDs& ids) const
     return result;
 }
 
-IComponent& Manager::getComponent(const Entity entity, const ComponentID cID)
-{
-    return *(entityMap[entity][cID]);
-}
