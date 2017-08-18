@@ -61,6 +61,8 @@ void createEntities(ecs::Manager& manager, sf::RenderWindow& rWindow)
         manager.addComponent(botWall, move(factory.makeRenderWindow(rWindow)));
     ecs::Entity posText = manager.makeEntity();
         manager.addComponent(posText, move(factory.makeTextShape("/usr/share/fonts/dejavu/DejaVuSansMono.ttf")));
+        manager.addComponent(posText, move(factory.makePosition(10.0, 10.0)));
+        manager.addComponent(posText, move(factory.makeSpeed(0.0, 0.0)));
         manager.addComponent(posText, move(factory.makeRenderWindow(rWindow)));
 }
 
@@ -76,7 +78,7 @@ int main(int argc, char ** argv) {
     createEntities(manager, rWindow);
 
     // Create our systems
-    ecs::ptrISystem renderer(new RenderSystem(&rWindow, manager));
+    ecs::ptrISystem renderer(new RenderSystem(manager, &rWindow));
     ecs::ptrISystem mover(new PhysicsSystem(manager));
     ecs::ptrISystem collision_detector(new SimpleCollisionSystem(manager));
 

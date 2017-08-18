@@ -33,6 +33,6 @@ namespace ecs{
      //intantiate static vars
     template <class T>
     ecs::ComponentIDs ecs::ISystem_<T>::ids;
-};
+}
 
 #endif //ISystem_HEADER

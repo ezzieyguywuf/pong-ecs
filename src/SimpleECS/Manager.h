@@ -55,6 +55,6 @@ namespace ecs{
         return out;
         //return static_cast<T&>(*(entityMap[entity][T::sGetID()]));
     }
-};
+}
 
 #endif //Manager_HEADER

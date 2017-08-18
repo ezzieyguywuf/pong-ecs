@@ -37,6 +37,6 @@ namespace ecs{
     //{
         //return std::type_index(typeid(T));
     //}
-};
+}
 
 #endif //IComponent_HEADER

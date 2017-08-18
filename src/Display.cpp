@@ -1,7 +1,7 @@
 #include "Display.h"
 
 Display::Display(sf::RenderWindow& aWindow)
-    : myWindow(aWindow){};
+    : myWindow(aWindow){}
 
 bool Display::isOpen() const
 {

@@ -2,9 +2,10 @@
 #include <Components/RenderableComponent.h>
 #include <Components/PositionComponent.h>
 
-RenderSystem::RenderSystem(sf::RenderWindow* target, ecs::Manager& aManager)
-    : rTarget(target),
-      ecs::ISystem_<RenderSystem>(aManager) {
+RenderSystem::RenderSystem(ecs::Manager& aManager, sf::RenderWindow* target)
+    : ecs::ISystem_<RenderSystem>(aManager),
+      rTarget(target){
+
     if (ids.empty())
     {
         ids.insert(RenderableComponent::sGetID());

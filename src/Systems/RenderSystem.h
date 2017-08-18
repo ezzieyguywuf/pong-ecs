@@ -10,7 +10,7 @@
 class RenderSystem : public ecs::ISystem_<RenderSystem>
 {
     public:
-        RenderSystem(sf::RenderWindow* target, ecs::Manager& aManager);
+        RenderSystem(ecs::Manager& aManager, sf::RenderWindow* target);
         void Execute() const override;
 
     private:
