@@ -21,8 +21,14 @@ void RenderSystem::Execute() const
         RenderableComponent& target = manager.getComponent<RenderableComponent>(entity);
         PositionComponent& pos = manager.getComponent<PositionComponent>(entity);
 
-        target.transformable.setPosition(pos.x, pos.y);
-        rTarget->draw(target.drawable);
+        if (target.shape){
+            target.shape->setPosition(pos.x, pos.y);
+            rTarget->draw(*(target.shape));
+        }
+        else if (target.text){
+            target.text->setPosition(pos.x, pos.y);
+            rTarget->draw(*(target.text));
+        }
     }
     rTarget->display();
 }

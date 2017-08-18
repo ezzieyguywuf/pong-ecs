@@ -19,7 +19,7 @@ class ComponentFactory
 {
     public:
         ptrIComponent makeRenderWindow(sf::RenderWindow& window);
-        ptrIComponent makeTextShape(std::string filename);
+        ptrIComponent makeTextShape(sf::Font& font);
         ptrIComponent makeCircleShape(float rad);
         ptrIComponent makeRectangleShape(float width, float height);
         ptrIComponent makePosition(float x, float y);

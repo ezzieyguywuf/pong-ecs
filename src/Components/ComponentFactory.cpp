@@ -22,15 +22,9 @@ ptrIComponent ComponentFactory::makeRectangleShape(float width, float height)
     return ptrIComponent(new RenderableComponent(std::move(shape)));
 }
 
-ptrIComponent ComponentFactory::makeTextShape(std::string filename)
+ptrIComponent ComponentFactory::makeTextShape(sf::Font& font)
 {
-    std::unique_ptr<sf::Text> text(new sf::Text());
-    sf::Font font;
-    font.loadFromFile(filename);
-    text->setFont(font);
-    text->setCharacterSize(8);
-    text->setFillColor(sf::Color::Blue);
-    return ptrIComponent(new RenderableComponent(std::move(text)));
+    return ptrIComponent(new RenderableComponent(font));
 }
 
 ptrIComponent ComponentFactory::makePosition(float x, float y)

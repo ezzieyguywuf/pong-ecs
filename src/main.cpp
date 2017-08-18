@@ -24,7 +24,7 @@ float HEIGHT = 480;
 
 using std::move;
 
-void createEntities(ecs::Manager& manager, sf::RenderWindow& rWindow)
+void createEntities(ecs::Manager& manager, sf::RenderWindow& rWindow, sf::Font& font)
 {
     ComponentFactory factory;
     // Make our entities and add the appropriate components.
@@ -60,7 +60,7 @@ void createEntities(ecs::Manager& manager, sf::RenderWindow& rWindow)
         manager.addComponent(botWall, move(factory.makeSpeed(0.0, 0.0)));
         manager.addComponent(botWall, move(factory.makeRenderWindow(rWindow)));
     ecs::Entity posText = manager.makeEntity();
-        manager.addComponent(posText, move(factory.makeTextShape("/usr/share/fonts/dejavu/DejaVuSansMono.ttf")));
+        manager.addComponent(posText, move(factory.makeTextShape(font)));
         manager.addComponent(posText, move(factory.makePosition(10.0, 10.0)));
         manager.addComponent(posText, move(factory.makeSpeed(0.0, 0.0)));
         manager.addComponent(posText, move(factory.makeRenderWindow(rWindow)));
@@ -74,8 +74,15 @@ int main(int argc, char ** argv) {
     Display display(rWindow);
     Engine engine(display, 20);
 
+    // need a font object
+    sf::Font font;
+    if (!font.loadFromFile("/usr/share/fonts/dejavu/DejaVuSansMono.ttf")){
+        std::cout << "THERE WAS AN ERROR LOADING TEH FONT" << std::endl;
+        return 1;
+    }
+
     // make our entities and add components
-    createEntities(manager, rWindow);
+    createEntities(manager, rWindow, font);
 
     // Create our systems
     ecs::ptrISystem renderer(new RenderSystem(manager, &rWindow));
