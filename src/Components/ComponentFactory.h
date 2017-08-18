@@ -8,6 +8,8 @@
 #include <Components/PositionComponent.h>
 #include <Components/SpeedComponent.h>
 #include <Components/BoundingBoxComponent.h>
+#include <Components/TextSinkComponent.h>
+#include <Components/TextSourceComponent.h>
 
 #include <SFML/Graphics.hpp>
 
@@ -25,6 +27,8 @@ class ComponentFactory
         ptrIComponent makePosition(float x, float y);
         ptrIComponent makeSpeed(float vx, float vy);
         ptrIComponent makeBoundingBox(float width, float height);
+        ptrIComponent makeTextSink(ecs::Entity entity);
+        ptrIComponent makeTextSource(ecs::Entity entity);
 };
 
 #endif //ComponentFactory_HEADER

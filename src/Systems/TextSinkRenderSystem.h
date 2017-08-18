@@ -10,11 +10,8 @@
 class TextSinkRenderSystem : public ecs::ISystem_<TextSinkRenderSystem>
 {
     public:
-        TextSinkRenderSystem(sf::RenderWindow* target, ecs::Manager& aManager);
+        TextSinkRenderSystem(ecs::Manager& aManager);
         void Execute() const override;
-
-    private:
-        sf::RenderWindow* rTarget;
 };
 
 #endif //TextSinkRenderSystem_HEADER

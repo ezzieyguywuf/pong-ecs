@@ -7,6 +7,7 @@
 #include <Systems/RenderSystem.h>
 #include <Systems/PhysicsSystem.h>
 #include <Systems/SimpleCollisionSystem.h>
+#include <Systems/TextSinkRenderSystem.h>
 
 // local lib
 #include <SimpleECS/ISystem.h>
@@ -64,6 +65,9 @@ void createEntities(ecs::Manager& manager, sf::RenderWindow& rWindow, sf::Font& 
         manager.addComponent(posText, move(factory.makePosition(10.0, 10.0)));
         manager.addComponent(posText, move(factory.makeSpeed(0.0, 0.0)));
         manager.addComponent(posText, move(factory.makeRenderWindow(rWindow)));
+    ecs::Entity showText = manager.makeEntity();
+        manager.addComponent(showText, move(factory.makeTextSink(posText)));
+        manager.addComponent(showText, move(factory.makeTextSource(ball)));
 }
 
 int main(int argc, char ** argv) {
@@ -88,10 +92,12 @@ int main(int argc, char ** argv) {
     ecs::ptrISystem renderer(new RenderSystem(manager, &rWindow));
     ecs::ptrISystem mover(new PhysicsSystem(manager));
     ecs::ptrISystem collision_detector(new SimpleCollisionSystem(manager));
+    ecs::ptrISystem textSinkRenderer(new TextSinkRenderSystem(manager));
 
     // add systems to the game engine
     engine.addSystem(move(mover), When::During);
     engine.addSystem(move(collision_detector), When::During);
+    engine.addSystem(move(textSinkRenderer), When::During);
     engine.addSystem(move(renderer), When::After);
 
     // start the main loop

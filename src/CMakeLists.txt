@@ -18,6 +18,7 @@ target_link_libraries(pong
     RenderSystem
     PhysicsSystem
     CollisionSystem
+    TextSinkRenderSystem
     engine
     sfml-graphics
     sfml-window

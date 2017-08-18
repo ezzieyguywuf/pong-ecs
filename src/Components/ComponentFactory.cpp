@@ -41,3 +41,13 @@ ptrIComponent ComponentFactory::makeBoundingBox(float width, float height)
 {
     return ptrIComponent(new BoundingBoxComponent(width, height));
 }
+
+ptrIComponent ComponentFactory::makeTextSink(ecs::Entity entity)
+{
+    return ptrIComponent(new TextSinkComponent(entity));
+}
+
+ptrIComponent ComponentFactory::makeTextSource(ecs::Entity entity)
+{
+    return ptrIComponent(new TextSourceComponent(entity));
+}
