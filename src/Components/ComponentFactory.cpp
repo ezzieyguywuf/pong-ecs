@@ -11,6 +11,7 @@ ptrIComponent ComponentFactory::makeRenderWindow(sf::RenderWindow& window)
 ptrIComponent ComponentFactory::makeCircleShape(float rad)
 {
     std::unique_ptr<sf::Shape> shape(new sf::CircleShape(rad));
+    shape->setFillColor(sf::Color::Blue);
     return ptrIComponent(new RenderableComponent(std::move(shape)));
 }
 

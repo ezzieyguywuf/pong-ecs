@@ -31,10 +31,22 @@ void createEntities(ecs::Manager& manager, sf::RenderWindow& rWindow)
     // NOTE: this could be pulled, theoretically, from some sort of plain text file.
     ecs::Entity ball = manager.makeEntity();
         manager.addComponent(ball, move(factory.makeCircleShape(10)));
-        manager.addComponent(ball, move(factory.makePosition(WIDTH/2.0, 10)));
-        manager.addComponent(ball, move(factory.makeSpeed(0,-20)));
+        manager.addComponent(ball, move(factory.makePosition(WIDTH/2.0, 80)));
+        manager.addComponent(ball, move(factory.makeSpeed(0,-5)));
         manager.addComponent(ball, move(factory.makeBoundingBox(20, 20)));
         manager.addComponent(ball, move(factory.makeRenderWindow(rWindow)));
+    ecs::Entity ball2 = manager.makeEntity();
+        manager.addComponent(ball2, move(factory.makeCircleShape(10)));
+        manager.addComponent(ball2, move(factory.makePosition(WIDTH/2.0 - 80, 80)));
+        manager.addComponent(ball2, move(factory.makeSpeed(0,-10)));
+        manager.addComponent(ball2, move(factory.makeBoundingBox(20, 20)));
+        manager.addComponent(ball2, move(factory.makeRenderWindow(rWindow)));
+    ecs::Entity ball3 = manager.makeEntity();
+        manager.addComponent(ball3, move(factory.makeCircleShape(10)));
+        manager.addComponent(ball3, move(factory.makePosition(WIDTH/2.0 + 80, 80)));
+        manager.addComponent(ball3, move(factory.makeSpeed(0,-15)));
+        manager.addComponent(ball3, move(factory.makeBoundingBox(20, 20)));
+        manager.addComponent(ball3, move(factory.makeRenderWindow(rWindow)));
     ecs::Entity topWall = manager.makeEntity();
         manager.addComponent(topWall, move(factory.makeRectangleShape(WIDTH,10)));
         manager.addComponent(topWall, move(factory.makePosition(0.0, 0.0)));
@@ -58,7 +70,7 @@ int main(int argc, char ** argv) {
     // Instantiate our game engine
     sf::RenderWindow rWindow(sf::VideoMode(WIDTH, HEIGHT), "SFML Pong Demo");
     Display display(rWindow);
-    Engine engine(display);
+    Engine engine(display, 20);
 
     // make our entities and add components
     createEntities(manager, rWindow);
