@@ -49,7 +49,11 @@ namespace ecs{
     template <typename T>
     T& Manager::getComponent(const Entity entity)
     {
-        return static_cast<T&>(*(entityMap[entity][T::sGetID()]));
+        std::map<ComponentID, std::unique_ptr<IComponent>>& comps = entityMap[entity];
+        std::unique_ptr<IComponent>& ptr = comps[T::sGetID()];
+        T& out = static_cast<T&>(*ptr);
+        return out;
+        //return static_cast<T&>(*(entityMap[entity][T::sGetID()]));
     }
 };
 

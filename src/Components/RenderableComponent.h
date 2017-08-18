@@ -4,9 +4,13 @@
 #include <SimpleECS/IComponent.h>
 #include <SFML/Graphics.hpp>
 #include <memory>
+#include <iostream>
 
 class RenderableComponent : public ecs::IComponent_<RenderableComponent>
 {
+    private:
+        std::unique_ptr<sf::Shape> shape;
+        std::unique_ptr<sf::Text> text;
     public:
         RenderableComponent(std::unique_ptr<sf::Shape> aShape)
             : shape(std::move(aShape)),
@@ -19,9 +23,6 @@ class RenderableComponent : public ecs::IComponent_<RenderableComponent>
 
         sf::Drawable& drawable;
         sf::Transformable& transformable;
-    private:
-        std::unique_ptr<sf::Shape> shape;
-        std::unique_ptr<sf::Text> text;
 };
 
 #endif //RenderableComponent_Component_HEADER
