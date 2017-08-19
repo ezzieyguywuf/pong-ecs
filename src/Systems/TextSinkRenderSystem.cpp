@@ -14,7 +14,7 @@ TextSinkRenderSystem::TextSinkRenderSystem(ecs::Manager& aManager)
     }
 }
 
-void TextSinkRenderSystem::Execute() const
+void TextSinkRenderSystem::Execute(unsigned int time_step) const
 {
     for (auto entity : manager.getEntities(this->getComponentIDs()))
     {

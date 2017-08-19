@@ -11,7 +11,7 @@ class RenderSystem : public ecs::ISystem_<RenderSystem>
 {
     public:
         RenderSystem(ecs::Manager& aManager, sf::RenderWindow* target);
-        void Execute() const override;
+        void Execute(unsigned int time_step) const override;
 
     private:
         sf::RenderWindow* rTarget;

@@ -11,7 +11,7 @@ class TextSinkRenderSystem : public ecs::ISystem_<TextSinkRenderSystem>
 {
     public:
         TextSinkRenderSystem(ecs::Manager& aManager);
-        void Execute() const override;
+        void Execute(unsigned int time_step) const override;
 };
 
 #endif //TextSinkRenderSystem_HEADER

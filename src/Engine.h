@@ -41,6 +41,7 @@ class Engine
         std::set<sf::Keyboard::Key> events;
         sf::RenderWindow& myWindow;
         unsigned int TICK_RATE;
+        unsigned int TIME_STEP;
         ecs::ptrISystems systemsDuring;
         ecs::ptrISystems systemsBefore;
         ecs::ptrISystems systemsAfter;

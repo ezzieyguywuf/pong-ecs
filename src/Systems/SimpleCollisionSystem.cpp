@@ -17,7 +17,7 @@ SimpleCollisionSystem::SimpleCollisionSystem(ecs::Manager& aManager)
     }
 }
 
-void SimpleCollisionSystem::Execute() const
+void SimpleCollisionSystem::Execute(unsigned int time_step) const
 {
     ecs::Entities found;
     ecs::Entities allEntities = manager.getEntities(this->getComponentIDs());

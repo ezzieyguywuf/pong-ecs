@@ -9,7 +9,7 @@ class PhysicsSystem : public ecs::ISystem_<PhysicsSystem>
 {
     public:
         PhysicsSystem(ecs::Manager& aManager);
-        void Execute() const override;
+        void Execute(unsigned int time_step) const override;
 };
 
 #endif //PhysicsSystem_HEADER

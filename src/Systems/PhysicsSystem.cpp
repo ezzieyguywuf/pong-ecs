@@ -14,7 +14,7 @@ PhysicsSystem::PhysicsSystem(ecs::Manager& aManager)
     }
 }
 
-void PhysicsSystem::Execute() const
+void PhysicsSystem::Execute(unsigned int time_step) const
 {
     for (auto entity : manager.getEntities(this->getComponentIDs()))
     {

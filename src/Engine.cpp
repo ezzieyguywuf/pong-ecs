@@ -15,9 +15,9 @@ void Engine::start()
     sf::Clock clock;
 
     unsigned int elapsed = 0;
-    // TICK_RATE is ticks/sec. time_step is "amount of time passed per tick", in other
+    // TICK_RATE is ticks/sec. TIME_STEP is "amount of time passed per tick", in other
     // words 1/TICK_RATE. Finally, we must convert from sec/ticks to microsecs/tick
-    unsigned int time_step = 1000000.0/TICK_RATE;
+    TIME_STEP = 1000000.0/TICK_RATE;
     unsigned int accumulated = 0;
 
     while (myWindow.isOpen())
@@ -30,7 +30,7 @@ void Engine::start()
         // process as many 'tick's as we can. Any extra will just accumulate until there's
         // a full 'tick' left to process.
         // Example:
-        //      time_step   = 0.1  s
+        //      TIME_STEP   = 0.1  s
         //      elapsed     = 0.35 s
         //      accumulated = 0.40 s
         //
@@ -39,10 +39,10 @@ void Engine::start()
         //      we just waited until we had a full tick left. Now, since 0.35s has elapsed
         //      in 'real time', we need to advance the game time by 4 'ticks' before
         //      moving on
-        while (accumulated >= time_step)
+        while (accumulated >= TIME_STEP)
         {
             this->Update();
-            accumulated -= time_step;
+            accumulated -= TIME_STEP;
         }
         //This may take a 'long' time
         this->Draw();
@@ -77,7 +77,7 @@ void Engine::processSystems(const ecs::ptrISystems& systems)
 {
     for (const auto& system : systems)
     {
-        system->Execute(); 
+        system->Execute(TIME_STEP); 
     }
 }
 

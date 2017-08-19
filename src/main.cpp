@@ -40,7 +40,7 @@ void createEntities(ecs::Manager& manager, sf::RenderWindow& rWindow, sf::Font& 
     ecs::Entity ball2 = manager.makeEntity();
         manager.addComponent(ball2, move(factory.makeCircleShape(10)));
         manager.addComponent(ball2, move(factory.makePosition(WIDTH/2.0 - 80, 80)));
-        manager.addComponent(ball2, move(factory.makeSpeed(0.1,0.1)));
+        manager.addComponent(ball2, move(factory.makeSpeed(0.0,0.0)));
         manager.addComponent(ball2, move(factory.makeBoundingBox(20, 20)));
         manager.addComponent(ball2, move(factory.makeMovable(Key::Up, Key::Down, Key::Left, Key::Right)));
     ecs::Entity ball3 = manager.makeEntity();
@@ -58,13 +58,23 @@ void createEntities(ecs::Manager& manager, sf::RenderWindow& rWindow, sf::Font& 
         manager.addComponent(botWall, move(factory.makePosition(0.0, HEIGHT-10)));
         manager.addComponent(botWall, move(factory.makeBoundingBox(WIDTH, 10)));
         manager.addComponent(botWall, move(factory.makeSpeed(0.0, 0.0)));
+    ecs::Entity lftWall = manager.makeEntity();
+        manager.addComponent(lftWall, move(factory.makeRectangleShape(10,HEIGHT)));
+        manager.addComponent(lftWall, move(factory.makePosition(0.0, 0.0)));
+        manager.addComponent(lftWall, move(factory.makeBoundingBox(10, HEIGHT)));
+        manager.addComponent(lftWall, move(factory.makeSpeed(0.0, 0.0)));
+    ecs::Entity rgtWall = manager.makeEntity();
+        manager.addComponent(rgtWall, move(factory.makeRectangleShape(10,HEIGHT)));
+        manager.addComponent(rgtWall, move(factory.makePosition(WIDTH-10, 0.0)));
+        manager.addComponent(rgtWall, move(factory.makeBoundingBox(10, HEIGHT)));
+        manager.addComponent(rgtWall, move(factory.makeSpeed(0.0, 0.0)));
     ecs::Entity posText = manager.makeEntity();
         manager.addComponent(posText, move(factory.makeTextShape(font)));
         manager.addComponent(posText, move(factory.makePosition(10.0, 10.0)));
         manager.addComponent(posText, move(factory.makeSpeed(0.0, 0.0)));
     ecs::Entity showText = manager.makeEntity();
         manager.addComponent(showText, move(factory.makeTextSink(posText)));
-        manager.addComponent(showText, move(factory.makeTextSource(ball)));
+        manager.addComponent(showText, move(factory.makeTextSource(ball2)));
 }
 
 int main(int argc, char ** argv) {

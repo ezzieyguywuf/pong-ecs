@@ -7,7 +7,7 @@ class SimpleCollisionSystem : public ecs::ISystem_<SimpleCollisionSystem>
 {
     public:
         SimpleCollisionSystem(ecs::Manager& aManager);
-        void Execute() const override;
+        void Execute(unsigned int time_step) const override;
 };
 
 #endif //SimpleCollisionSystem_HEADER

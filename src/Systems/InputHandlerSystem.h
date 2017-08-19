@@ -13,7 +13,7 @@ class InputHandlerSystem : public ecs::ISystem_<InputHandlerSystem>
 {
     public:
         InputHandlerSystem(ecs::Manager& aManager, const Events& aEvents);
-        void Execute() const override;
+        void Execute(unsigned int time_step) const override;
 
     private:
         const Events& events;
