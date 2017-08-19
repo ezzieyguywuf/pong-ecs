@@ -13,7 +13,7 @@ RenderSystem::RenderSystem(ecs::Manager& aManager, sf::RenderWindow* target)
     }
 }
 
-void RenderSystem::Execute(unsigned int time_step) const
+void RenderSystem::Execute(float time_step) const
 {
     rTarget->clear();
     for (auto entity : manager.getEntities(this->getComponentIDs()))

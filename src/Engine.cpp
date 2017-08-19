@@ -17,12 +17,12 @@ void Engine::start()
     unsigned int elapsed = 0;
     // TICK_RATE is ticks/sec. TIME_STEP is "amount of time passed per tick", in other
     // words 1/TICK_RATE. Finally, we must convert from sec/ticks to microsecs/tick
-    TIME_STEP = 1000000.0/TICK_RATE;
+    TIME_STEP = 1.0 / TICK_RATE;
     unsigned int accumulated = 0;
 
     while (myWindow.isOpen())
     {
-        elapsed = clock.getElapsedTime().asMicroseconds();
+        elapsed = clock.getElapsedTime().asSeconds();
         clock.restart();
         accumulated += elapsed;
 

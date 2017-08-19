@@ -35,7 +35,7 @@ void createEntities(ecs::Manager& manager, sf::RenderWindow& rWindow, sf::Font& 
     ecs::Entity ball = manager.makeEntity();
         manager.addComponent(ball, move(factory.makeCircleShape(10)));
         manager.addComponent(ball, move(factory.makePosition(WIDTH/2.0, 80)));
-        manager.addComponent(ball, move(factory.makeSpeed(0,-5)));
+        manager.addComponent(ball, move(factory.makeSpeed(0,-1.5)));
         manager.addComponent(ball, move(factory.makeBoundingBox(20, 20)));
     ecs::Entity ball2 = manager.makeEntity();
         manager.addComponent(ball2, move(factory.makeCircleShape(10)));
@@ -46,7 +46,7 @@ void createEntities(ecs::Manager& manager, sf::RenderWindow& rWindow, sf::Font& 
     ecs::Entity ball3 = manager.makeEntity();
         manager.addComponent(ball3, move(factory.makeCircleShape(10)));
         manager.addComponent(ball3, move(factory.makePosition(WIDTH/2.0 + 80, 80)));
-        manager.addComponent(ball3, move(factory.makeSpeed(0,-15)));
+        manager.addComponent(ball3, move(factory.makeSpeed(0,-1)));
         manager.addComponent(ball3, move(factory.makeBoundingBox(20, 20)));
     ecs::Entity topWall = manager.makeEntity();
         manager.addComponent(topWall, move(factory.makeRectangleShape(WIDTH,10)));
@@ -82,7 +82,7 @@ int main(int argc, char ** argv) {
 
     // Instantiate our game engine
     sf::RenderWindow rWindow(sf::VideoMode(WIDTH, HEIGHT), "SFML Pong Demo");
-    Engine engine(rWindow, 20);
+    Engine engine(rWindow, 30);
 
     // need a font object
     sf::Font font;

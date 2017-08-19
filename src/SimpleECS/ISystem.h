@@ -12,7 +12,7 @@ namespace ecs{
     {
         public:
             virtual const ecs::ComponentIDs& getComponentIDs() const = 0;
-            virtual void Execute(unsigned int time_step) const = 0;
+            virtual void Execute(float time_step) const = 0;
     };
 
     template <class T>

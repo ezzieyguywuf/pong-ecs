@@ -16,7 +16,7 @@ InputHandlerSystem::InputHandlerSystem(ecs::Manager& aManager, const Events& aEv
     }
 }
 
-void InputHandlerSystem::Execute(unsigned int time_step) const
+void InputHandlerSystem::Execute(float time_step) const
 {
     for (auto entity : manager.getEntities(this->getComponentIDs()))
     {

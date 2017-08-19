@@ -14,14 +14,14 @@ PhysicsSystem::PhysicsSystem(ecs::Manager& aManager)
     }
 }
 
-void PhysicsSystem::Execute(unsigned int time_step) const
+void PhysicsSystem::Execute(float time_step) const
 {
     for (auto entity : manager.getEntities(this->getComponentIDs()))
     {
         PositionComponent& position = manager.getComponent<PositionComponent>(entity);
         SpeedComponent& speed = manager.getComponent<SpeedComponent>(entity);
 
-        position.x += speed.x;
-        position.y += speed.y;
+        position.x += speed.x ;//* time_step;
+        position.y += speed.y ;//* time_step;
     }
 }
