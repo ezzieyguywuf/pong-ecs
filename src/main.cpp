@@ -1,6 +1,5 @@
 // current dir
 #include <Engine.h>
-#include <Display.h>
 
 #include <Components/ComponentFactory.h>
 
@@ -75,8 +74,7 @@ int main(int argc, char ** argv) {
 
     // Instantiate our game engine
     sf::RenderWindow rWindow(sf::VideoMode(WIDTH, HEIGHT), "SFML Pong Demo");
-    Display display(rWindow);
-    Engine engine(display, 20);
+    Engine engine(rWindow, 20);
 
     // need a font object
     sf::Font font;

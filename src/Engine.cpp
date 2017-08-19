@@ -2,8 +2,8 @@
 
 //#include <SFML/System.hpp>
 
-Engine::Engine(Display& aDisp, unsigned int rate)
-    : myDisplay(aDisp),
+Engine::Engine(sf::RenderWindow& aWindow, unsigned int rate)
+    : myWindow(aWindow),
       TICK_RATE(rate)
 {}
 
@@ -20,7 +20,7 @@ void Engine::start()
     unsigned int time_step = 1000000.0/TICK_RATE;
     unsigned int accumulated = 0;
 
-    while (myDisplay.isOpen())
+    while (myWindow.isOpen())
     {
         elapsed = clock.getElapsedTime().asMicroseconds();
         clock.restart();
@@ -78,6 +78,13 @@ void Engine::processSystems(const ecs::ptrISystems& systems)
 
 void Engine::Input()
 {
+    while (myWindow.pollEvent(event))
+    {
+        if (event.type == sf::Event::EventType::Closed)
+        {
+            myWindow.close();
+        }
+    }
     this->processSystems(this->systemsBefore);
 }
 

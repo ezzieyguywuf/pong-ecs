@@ -7,7 +7,7 @@
 #include <vector>
 #include <memory>
 
-#include "Display.h"
+#include <SFML/Graphics.hpp>
 
 enum class When{
     Before,
@@ -19,7 +19,7 @@ class Engine
 {
     public:
         // TICK_RATE should be provided in units of ticks per second
-        Engine(Display& aDisp, unsigned int rate=30);
+        Engine(sf::RenderWindow& aWindow, unsigned int rate=30);
         ~Engine();
 
         // The different values of `when` mean:
@@ -35,7 +35,8 @@ class Engine
         void Update();
         void Draw();
 
-        Display myDisplay;
+        sf::Event event;
+        sf::RenderWindow& myWindow;
         unsigned int TICK_RATE;
         ecs::ptrISystems systemsDuring;
         ecs::ptrISystems systemsBefore;
