@@ -51,3 +51,8 @@ ptrIComponent ComponentFactory::makeTextSource(ecs::Entity entity)
 {
     return ptrIComponent(new TextSourceComponent(entity));
 }
+
+ptrIComponent ComponentFactory::makeMovable(Key up, Key down, Key left, Key right)
+{
+    return ptrIComponent(new MovableComponent(up, down, left, right));
+}

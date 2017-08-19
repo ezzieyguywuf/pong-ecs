@@ -64,6 +64,11 @@ void Engine::addSystem(ecs::ptrISystem aSystem, const When when)
     }
 }
 
+const std::set<sf::Keyboard::Key>& Engine::getEventsRef() const
+{
+    return events;
+}
+
 //-------------------------------------------------------
 //                  private methods
 //-------------------------------------------------------
@@ -80,9 +85,13 @@ void Engine::Input()
 {
     while (myWindow.pollEvent(event))
     {
+        events.clear();
         if (event.type == sf::Event::EventType::Closed)
         {
             myWindow.close();
+        }
+        if (event.type == sf::Event::EventType::KeyPressed){
+            events.insert(event.key.code);
         }
     }
     this->processSystems(this->systemsBefore);

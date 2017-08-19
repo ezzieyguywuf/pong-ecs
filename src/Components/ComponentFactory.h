@@ -10,12 +10,15 @@
 #include <Components/BoundingBoxComponent.h>
 #include <Components/TextSinkComponent.h>
 #include <Components/TextSourceComponent.h>
+#include <Components/MovableComponent.h>
 
 #include <SFML/Graphics.hpp>
+#include <SFML/Window.hpp>
 
 #include <string>
 
 using ecs::ptrIComponent;
+using Key = sf::Keyboard::Key;
 
 class ComponentFactory
 {
@@ -29,6 +32,7 @@ class ComponentFactory
         ptrIComponent makeBoundingBox(float width, float height);
         ptrIComponent makeTextSink(ecs::Entity entity);
         ptrIComponent makeTextSource(ecs::Entity entity);
+        ptrIComponent makeMovable(Key up, Key down, Key left, Key right);
 };
 
 #endif //ComponentFactory_HEADER

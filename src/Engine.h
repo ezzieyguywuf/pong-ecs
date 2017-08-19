@@ -15,6 +15,7 @@ enum class When{
     After
 };
 
+
 class Engine
 {
     public:
@@ -28,6 +29,7 @@ class Engine
         //  After  -> runs as fast as possible, after the when=0 systems
         void addSystem(ecs::ptrISystem aSystem, const When when=When::During);
         void start();
+        const std::set<sf::Keyboard::Key>& getEventsRef() const;
 
     private:
         void processSystems(const ecs::ptrISystems& systems);
@@ -36,6 +38,7 @@ class Engine
         void Draw();
 
         sf::Event event;
+        std::set<sf::Keyboard::Key> events;
         sf::RenderWindow& myWindow;
         unsigned int TICK_RATE;
         ecs::ptrISystems systemsDuring;
