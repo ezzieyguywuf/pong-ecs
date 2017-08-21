@@ -56,10 +56,14 @@ void SimpleCollisionSystem::Execute(float time_step) const
                 if (l2 > l1 || r2 < r1){
                     speed1.x *= -1;
                     speed2.x *= -1;
+                    speed1.x = 0;
+                    speed2.x = 0;
                 }
                 if (t2 < t1 || b2 > b1){
                     speed1.y *= -1;
                     speed2.y *= -1;
+                    speed1.y = 0;
+                    speed2.y = 0;
                 }
             }
             if (pos1.x + bbox1.width > mWIDTH - 10)
