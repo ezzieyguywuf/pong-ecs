@@ -7,13 +7,15 @@
 #include <algorithm>
 
 
-SimpleCollisionSystem::SimpleCollisionSystem(ecs::Manager& aManager)
-    : ecs::ISystem_<SimpleCollisionSystem>(aManager) {
+SimpleCollisionSystem::SimpleCollisionSystem(ecs::Manager& aManager, unsigned int width, unsigned int height)
+    : ecs::ISystem_<SimpleCollisionSystem>(aManager),
+      mWIDTH(width),
+      mHEIGHT(height){
     if (ids.empty())
     {
         ids.insert(PositionComponent::sGetID());
-        ids.insert(SpeedComponent::sGetID());
         ids.insert(BoundingBoxComponent::sGetID());
+        ids.insert(SpeedComponent::sGetID());
     }
 }
 
@@ -47,10 +49,10 @@ void SimpleCollisionSystem::Execute(float time_step) const
             float b2 = pos2.y + bbox2.height;
 
             if (not (l2 < l1 || r2 > r1 || t2 > t1 || b2 < b1)){
-                SpeedComponent& speed1 = manager.getComponent<SpeedComponent>(entity1);
-                SpeedComponent& speed2 = manager.getComponent<SpeedComponent>(entity2);
                 found.push_back(entity1);
                 found.push_back(entity2);
+                SpeedComponent& speed1 = manager.getComponent<SpeedComponent>(entity1);
+                SpeedComponent& speed2 = manager.getComponent<SpeedComponent>(entity2);
                 if (l2 > l1 || r2 < r1){
                     speed1.x *= -1;
                     speed2.x *= -1;
@@ -60,6 +62,24 @@ void SimpleCollisionSystem::Execute(float time_step) const
                     speed2.y *= -1;
                 }
             }
+            if (pos1.x + bbox1.width > mWIDTH - 10)
+                pos1.x = mWIDTH - 10 - bbox1.width;
+            if (pos1.x < 10)
+                pos1.x = 10;
+            if (pos1.y + bbox1.height > mHEIGHT - 10)
+                pos1.y = mHEIGHT - 10 - bbox1.height;
+            if (pos1.y < 10)
+                pos1.y = 10;
+
+            if (pos2.x + bbox2.width > mWIDTH - 10)
+                pos2.x = mWIDTH - 10 - bbox2.width;
+            if (pos2.x < 0)
+                pos2.x = 10;
+            if (pos2.y + bbox2.height > mHEIGHT - 10)
+                pos2.y = mHEIGHT - 10 - bbox2.height;
+            if (pos2.y < 0)
+                pos2.y = 10;
+
         }
     }
 }

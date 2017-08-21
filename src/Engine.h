@@ -4,6 +4,7 @@
 #include <SimpleECS/ISystem.h>
 #include <SimpleECS/Manager.h>
 #include <SimpleECS/Types.h>
+#include <Events/EventManager.h>
 #include <vector>
 #include <memory>
 
@@ -39,6 +40,7 @@ class Engine
 
         sf::Event event;
         std::set<sf::Keyboard::Key> events;
+        Event::EventManager eventManager;
         sf::RenderWindow& myWindow;
         unsigned int TICK_RATE;
         float TIME_STEP;

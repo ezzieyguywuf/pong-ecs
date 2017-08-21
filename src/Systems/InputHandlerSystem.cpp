@@ -1,36 +1,65 @@
 #include "InputHandlerSystem.h"
 #include <Components/MovableComponent.h>
-#include <Components/PositionComponent.h>
+#include <Components/SpeedComponent.h>
 #include <SFML/Window.hpp>
+#include <Events/Input.h>
+#include <Events/Event.h>
 #include <set>
+#include <memory>
 
 using Events = std::set<sf::Keyboard::Key>;
 
-InputHandlerSystem::InputHandlerSystem(ecs::Manager& aManager, const Events& aEvents)
+InputHandlerSystem::InputHandlerSystem(ecs::Manager& aManager, Event::EventManager& anEventManager)
     : ecs::ISystem_<InputHandlerSystem>(aManager),
-      events(aEvents){
+      eventManager(anEventManager){
     if (ids.empty())
     {
-        ids.insert(PositionComponent::sGetID());
+        ids.insert(SpeedComponent::sGetID());
         ids.insert(MovableComponent::sGetID());
     }
+    eventManager.attach<Event::Input>(
+            std::bind(&InputHandlerSystem::processEvent, 
+                      this, 
+                      std::placeholders::_1));
+}
+
+void InputHandlerSystem::processEvent(const Event::IEvent& anEvent)
+{
+    const Event::Input& inpEvent = static_cast<const Event::Input&>(anEvent);
+    eventMap[inpEvent.key] = inpEvent.pressed;
 }
 
 void InputHandlerSystem::Execute(float time_step) const
 {
     for (auto entity : manager.getEntities(this->getComponentIDs()))
     {
-        PositionComponent& pos = manager.getComponent<PositionComponent>(entity);
+        SpeedComponent& speed = manager.getComponent<SpeedComponent>(entity);
         MovableComponent& move = manager.getComponent<MovableComponent>(entity);
 
-        if (events.find(move.up) != events.end())
-            pos.y -= 10;
-        if (events.find(move.down) != events.end())
-            pos.y += 10;
-        if (events.find(move.left) != events.end())
-            pos.x -= 10;
-        if (events.find(move.right) != events.end())
-            pos.x += 10;
+        if (eventMap.find(move.up) != eventMap.end()){
+            if (eventMap.at(move.up) && speed.y > -10)
+                speed.y -= 1;
+            else if (eventMap.at(move.up) == false && speed.y < 0)
+                speed.y += 1;
+        }
+        if (eventMap.find(move.down) != eventMap.end()){
+            if (eventMap.at(move.down) && speed.y < 10)
+                speed.y += 1;
+            else if (eventMap.at(move.down) == false && speed.y > 0)
+                speed.y -= 1;
+        }
+        if (eventMap.find(move.left) != eventMap.end()){
+            if (eventMap.at(move.left) && speed.y > -10)
+                speed.x -= 1;
+            else if (eventMap.at(move.left) == false && speed.y < 0)
+                speed.x += 1;
+        }
+        if (eventMap.find(move.right) != eventMap.end()){
+            if (eventMap.at(move.right) && speed.y < 10)
+                speed.x += 1;
+            else if (eventMap.at(move.right) == false && speed.y > 0)
+                speed.x -= 1;
+        }
     }
 }
 

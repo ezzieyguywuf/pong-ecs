@@ -13,6 +13,7 @@
 #include <SimpleECS/ISystem.h>
 #include <SimpleECS/IComponent.h>
 #include <SimpleECS/Manager.h>
+#include <Events/EventManager.h>
 
 // semi-local lib
 #include <SFML/Window.hpp>
@@ -52,22 +53,18 @@ void createEntities(ecs::Manager& manager, sf::RenderWindow& rWindow, sf::Font& 
         manager.addComponent(topWall, move(factory.makeRectangleShape(WIDTH,10)));
         manager.addComponent(topWall, move(factory.makePosition(0.0, 0.0)));
         manager.addComponent(topWall, move(factory.makeBoundingBox(WIDTH, 10)));
-        manager.addComponent(topWall, move(factory.makeSpeed(0.0, 0.0)));
     ecs::Entity botWall = manager.makeEntity();
         manager.addComponent(botWall, move(factory.makeRectangleShape(WIDTH,10)));
         manager.addComponent(botWall, move(factory.makePosition(0.0, HEIGHT-10)));
         manager.addComponent(botWall, move(factory.makeBoundingBox(WIDTH, 10)));
-        manager.addComponent(botWall, move(factory.makeSpeed(0.0, 0.0)));
     ecs::Entity lftWall = manager.makeEntity();
         manager.addComponent(lftWall, move(factory.makeRectangleShape(10,HEIGHT)));
         manager.addComponent(lftWall, move(factory.makePosition(0.0, 0.0)));
         manager.addComponent(lftWall, move(factory.makeBoundingBox(10, HEIGHT)));
-        manager.addComponent(lftWall, move(factory.makeSpeed(0.0, 0.0)));
     ecs::Entity rgtWall = manager.makeEntity();
         manager.addComponent(rgtWall, move(factory.makeRectangleShape(10,HEIGHT)));
         manager.addComponent(rgtWall, move(factory.makePosition(WIDTH-10, 0.0)));
         manager.addComponent(rgtWall, move(factory.makeBoundingBox(10, HEIGHT)));
-        manager.addComponent(rgtWall, move(factory.makeSpeed(0.0, 0.0)));
     ecs::Entity posText = manager.makeEntity();
         manager.addComponent(posText, move(factory.makeTextShape(font)));
         manager.addComponent(posText, move(factory.makePosition(10.0, 10.0)));
@@ -79,6 +76,7 @@ void createEntities(ecs::Manager& manager, sf::RenderWindow& rWindow, sf::Font& 
 
 int main(int argc, char ** argv) {
     ecs::Manager manager;
+    Event::EventManager eventManager;
 
     // Instantiate our game engine
     sf::RenderWindow rWindow(sf::VideoMode(WIDTH, HEIGHT), "SFML Pong Demo");
@@ -96,13 +94,13 @@ int main(int argc, char ** argv) {
 
     // add systems to the game engine
     engine.addSystem(
-        move(ecs::ptrISystem(new InputHandlerSystem(manager, engine.getEventsRef()))), 
+        move(ecs::ptrISystem(new InputHandlerSystem(manager, eventManager))), 
         When::During);
     engine.addSystem(
         move(ecs::ptrISystem(new PhysicsSystem(manager))), 
         When::During);
     engine.addSystem(
-        move(ecs::ptrISystem(new SimpleCollisionSystem(manager))), 
+        move(ecs::ptrISystem(new SimpleCollisionSystem(manager, WIDTH, HEIGHT))), 
         When::During);
     engine.addSystem(
         move(ecs::ptrISystem(new TextSinkRenderSystem(manager))), 

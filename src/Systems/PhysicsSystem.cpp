@@ -6,7 +6,7 @@
 
 
 PhysicsSystem::PhysicsSystem(ecs::Manager& aManager)
-    : ecs::ISystem_<PhysicsSystem>(aManager) {
+    : ecs::ISystem_<PhysicsSystem>(aManager){
     if (ids.empty())
     {
         ids.insert(PositionComponent::sGetID());

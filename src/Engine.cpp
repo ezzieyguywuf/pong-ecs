@@ -1,4 +1,5 @@
 #include "Engine.h"
+#include <Events/Input.h>
 
 //#include <SFML/System.hpp>
 
@@ -17,12 +18,12 @@ void Engine::start()
     unsigned int elapsed = 0;
     // TICK_RATE is ticks/sec. TIME_STEP is "amount of time passed per tick", in other
     // words 1/TICK_RATE. Finally, we must convert from sec/ticks to microsecs/tick
-    TIME_STEP = 1.0 / TICK_RATE;
+    TIME_STEP = 1000000.0 / TICK_RATE;
     unsigned int accumulated = 0;
 
     while (myWindow.isOpen())
     {
-        elapsed = clock.getElapsedTime().asSeconds();
+        elapsed = clock.getElapsedTime().asMicroseconds();
         clock.restart();
         accumulated += elapsed;
 
@@ -83,15 +84,18 @@ void Engine::processSystems(const ecs::ptrISystems& systems)
 
 void Engine::Input()
 {
+    events.clear();
     while (myWindow.pollEvent(event))
     {
-        events.clear();
         if (event.type == sf::Event::EventType::Closed)
         {
             myWindow.close();
         }
         if (event.type == sf::Event::EventType::KeyPressed){
-            events.insert(event.key.code);
+            eventManager.broadcast(Event::Input(event.key.code, true));
+        }
+        if (event.type == sf::Event::EventType::KeyReleased){
+            eventManager.broadcast(Event::Input(event.key.code, false));
         }
     }
     this->processSystems(this->systemsBefore);
