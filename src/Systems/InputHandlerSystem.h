@@ -21,7 +21,6 @@ class InputHandlerSystem : public ecs::ISystem_<InputHandlerSystem>
 
     private:
         EventMap eventMap;
-        Event::EventManager& eventManager;
 };
 
 #endif //InputHandlerSystem_HEADER
