@@ -1,7 +1,7 @@
 #ifndef EventManager_HEADER
 #define EventManager_HEADER
 
-#include "Event.h"
+#include "IEvent.h"
 
 #include <map>
 #include <typeindex>

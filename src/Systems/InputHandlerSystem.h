@@ -5,7 +5,7 @@
 #include <SimpleECS/Manager.h>
 #include <SimpleECS/ISystem.h>
 
-#include <Events/Event.h>
+#include <Events/IEvent.h>
 #include <Events/EventManager.h>
 
 #include <SFML/Window.hpp>

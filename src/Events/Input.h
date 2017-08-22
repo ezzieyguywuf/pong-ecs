@@ -1,7 +1,7 @@
 #ifndef Input_HEADER
 #define Input_HEADER
 
-#include "Event.h"
+#include "IEvent.h"
 #include <SFML/Window.hpp>
 
 namespace Event{

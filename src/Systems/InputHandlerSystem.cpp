@@ -3,7 +3,6 @@
 #include <Components/SpeedComponent.h>
 #include <SFML/Window.hpp>
 #include <Events/Input.h>
-#include <Events/Event.h>
 #include <set>
 #include <memory>
 
