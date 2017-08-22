@@ -9,13 +9,13 @@
 using Events = std::set<sf::Keyboard::Key>;
 
 InputHandlerSystem::InputHandlerSystem(ecs::Manager& aManager, Event::EventManager& anEventManager)
-    : ecs::ISystem_<InputHandlerSystem>(aManager)
+    : ecs::ISystem_<InputHandlerSystem>(aManager){
     if (ids.empty())
     {
         ids.insert(SpeedComponent::sGetID());
         ids.insert(MovableComponent::sGetID());
     }
-    eventManager.attach<Event::Input>(std::bind(&InputHandlerSystem::processEvent, this, std::placeholders::_1));
+    anEventManager.attach<Event::Input>(std::bind(&InputHandlerSystem::processEvent, this, std::placeholders::_1));
 }
 
 void InputHandlerSystem::processEvent(const Event::IEvent& anEvent)

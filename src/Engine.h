@@ -47,6 +47,7 @@ class Engine
         ecs::ptrISystems systemsDuring;
         ecs::ptrISystems systemsBefore;
         ecs::ptrISystems systemsAfter;
+        sf::Clock lastUserInput;
 
 };
 

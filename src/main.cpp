@@ -80,6 +80,7 @@ int main(int argc, char ** argv) {
 
     // Instantiate our game engine
     sf::RenderWindow rWindow(sf::VideoMode(WIDTH, HEIGHT), "SFML Pong Demo");
+    //rWindow.setFramerateLimit(60);
     Engine engine(rWindow, 30);
 
     // need a font object

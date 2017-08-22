@@ -26,6 +26,9 @@ void Engine::start()
         elapsed = clock.getElapsedTime().asMicroseconds();
         clock.restart();
         accumulated += elapsed;
+        if (lastUserInput.getElapsedTime().asMilliseconds() > 500){
+            sf::sleep(sf::milliseconds(100));
+        }
 
         this->Input();
         // process as many 'tick's as we can. Any extra will just accumulate until there's
@@ -92,9 +95,11 @@ void Engine::Input()
             myWindow.close();
         }
         if (event.type == sf::Event::EventType::KeyPressed){
+            lastUserInput.restart();
             eventManager.broadcast(Event::Input(event.key.code, true));
         }
         if (event.type == sf::Event::EventType::KeyReleased){
+            lastUserInput.restart();
             eventManager.broadcast(Event::Input(event.key.code, false));
         }
     }
