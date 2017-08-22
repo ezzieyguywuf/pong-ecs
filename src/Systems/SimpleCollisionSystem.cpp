@@ -4,8 +4,7 @@
 #include <Components/BoundingBoxComponent.h>
 
 // for std::find
-#include <algorithm>
-
+#include <set>
 
 SimpleCollisionSystem::SimpleCollisionSystem(ecs::Manager& aManager, unsigned int width, unsigned int height)
     : ecs::ISystem_<SimpleCollisionSystem>(aManager),
@@ -21,16 +20,16 @@ SimpleCollisionSystem::SimpleCollisionSystem(ecs::Manager& aManager, unsigned in
 
 void SimpleCollisionSystem::Execute(float time_step) const
 {
-    ecs::Entities found;
+    std::set<ecs::Entity> found;
     ecs::Entities allEntities = manager.getEntities(this->getComponentIDs());
     for (auto entity1 : allEntities)
     {
-        if (std::find(found.begin(), found.end(), entity1) != found.end()){
+        if (found.find(entity1) != found.end()){
             continue;
         }
         for (auto entity2 : allEntities)
         {
-            if (entity1 == entity2 || std::find(found.begin(), found.end(), entity2) != found.end()){
+            if (entity1 == entity2 || found.find(entity2) != found.end()){
                 continue;
             }
             PositionComponent& pos1 = manager.getComponent<PositionComponent>(entity1);
@@ -49,19 +48,15 @@ void SimpleCollisionSystem::Execute(float time_step) const
             float b2 = pos2.y + bbox2.height;
 
             if (not (l2 < l1 || r2 > r1 || t2 > t1 || b2 < b1)){
-                found.push_back(entity1);
-                found.push_back(entity2);
+                found.insert(entity1);
+                found.insert(entity2);
                 SpeedComponent& speed1 = manager.getComponent<SpeedComponent>(entity1);
                 SpeedComponent& speed2 = manager.getComponent<SpeedComponent>(entity2);
                 if (l2 > l1 || r2 < r1){
-                    speed1.x *= -1;
-                    speed2.x *= -1;
                     speed1.x = 0;
                     speed2.x = 0;
                 }
                 if (t2 < t1 || b2 > b1){
-                    speed1.y *= -1;
-                    speed2.y *= -1;
                     speed1.y = 0;
                     speed2.y = 0;
                 }
