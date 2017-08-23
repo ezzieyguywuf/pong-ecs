@@ -5,7 +5,7 @@
 
 #include <Systems/RenderSystem.h>
 #include <Systems/PhysicsSystem.h>
-#include <Systems/SimpleCollisionSystem.h>
+#include <Systems/EventCollisionSystem.h>
 #include <Systems/TextSinkRenderSystem.h>
 #include <Systems/InputHandlerSystem.h>
 
@@ -98,10 +98,10 @@ int main(int argc, char ** argv) {
         move(ecs::ptrISystem(new InputHandlerSystem(manager, eventManager))), 
         When::During);
     engine.addSystem(
-        move(ecs::ptrISystem(new PhysicsSystem(manager))), 
+        move(ecs::ptrISystem(new PhysicsSystem(manager, eventManager))), 
         When::During);
     engine.addSystem(
-        move(ecs::ptrISystem(new SimpleCollisionSystem(manager, WIDTH, HEIGHT))), 
+        move(ecs::ptrISystem(new EventCollisionSystem(manager, eventManager))), 
         When::During);
     engine.addSystem(
         move(ecs::ptrISystem(new TextSinkRenderSystem(manager))), 

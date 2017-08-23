@@ -1,12 +1,16 @@
 #include "PhysicsSystem.h"
 #include <Components/PositionComponent.h>
 #include <Components/SpeedComponent.h>
+#include <Components/BoundingBoxComponent.h>
+#include <Events/Move.h>
 
 #include <sstream>
 
 
-PhysicsSystem::PhysicsSystem(ecs::Manager& aManager)
-    : ecs::ISystem_<PhysicsSystem>(aManager){
+PhysicsSystem::PhysicsSystem(ecs::Manager& aManager, Event::EventManager& anEventManager)
+    : ecs::ISystem_<PhysicsSystem>(aManager),
+      eventManager(anEventManager)
+{
     if (ids.empty())
     {
         ids.insert(PositionComponent::sGetID());
@@ -23,5 +27,7 @@ void PhysicsSystem::Execute(float time_step) const
 
         position.x += speed.x ;//* time_step;
         position.y += speed.y ;//* time_step;
+        if (manager.hasComponent(entity, BoundingBoxComponent::sGetID()))
+            eventManager.broadcast(Event::Move(entity));
     }
 }
