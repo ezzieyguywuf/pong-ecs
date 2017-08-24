@@ -43,6 +43,10 @@ void EventCollisionSystem::processBounce( const ecs::Entity& collider, const ecs
             speed.x *= -1;
         else
             speed.y *= -1;
+        if (manager.hasComponent(collidee, SpeedComponent::sGetID())){
+            auto& speed2 = manager.getComponent<SpeedComponent>(collidee);
+            speed.y += 0.1 * speed2.y;
+        }
     }
 }
 
