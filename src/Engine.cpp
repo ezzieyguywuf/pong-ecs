@@ -26,11 +26,14 @@ void Engine::start()
         elapsed = clock.getElapsedTime().asMicroseconds();
         clock.restart();
         accumulated += elapsed;
-        if (lastUserInput.getElapsedTime().asSeconds() > 30 || !myWindow.hasFocus()){
-            sf::sleep(sf::milliseconds(100));
-        }
 
         this->Input();
+        if (lastUserInput.getElapsedTime().asSeconds() > 30 || !myWindow.hasFocus()){
+            sf::sleep(sf::milliseconds(100));
+            accumulated = 0;
+            this->Draw();
+            continue;
+        }
         // process as many 'tick's as we can. Any extra will just accumulate until there's
         // a full 'tick' left to process.
         // Example:

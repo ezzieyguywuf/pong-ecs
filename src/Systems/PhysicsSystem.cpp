@@ -18,9 +18,9 @@ PhysicsSystem::PhysicsSystem(ecs::Manager& aManager, Event::EventManager& anEven
     }
 }
 
-void PhysicsSystem::Execute(float time_step) const
+void PhysicsSystem::Execute(float time_step)
 {
-    for (auto entity : manager.getEntities(this->getComponentIDs()))
+    for (auto& entity : manager.getEntities(this->getComponentIDs()))
     {
         PositionComponent& position = manager.getComponent<PositionComponent>(entity);
         SpeedComponent& speed = manager.getComponent<SpeedComponent>(entity);

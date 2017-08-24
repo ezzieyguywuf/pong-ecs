@@ -10,7 +10,7 @@ class PhysicsSystem : public ecs::ISystem_<PhysicsSystem>
 {
     public:
         PhysicsSystem(ecs::Manager& aManager, Event::EventManager& anEventManager);
-        void Execute(float time_step) const override;
+        void Execute(float time_step) override;
 
     private:
         Event::EventManager& eventManager;

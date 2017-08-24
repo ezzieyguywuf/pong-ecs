@@ -14,9 +14,9 @@ TextSinkRenderSystem::TextSinkRenderSystem(ecs::Manager& aManager)
     }
 }
 
-void TextSinkRenderSystem::Execute(float time_step) const
+void TextSinkRenderSystem::Execute(float time_step)
 {
-    for (auto entity : manager.getEntities(this->getComponentIDs()))
+    for (auto& entity : manager.getEntities(this->getComponentIDs()))
     {
         TextSourceComponent& source = manager.getComponent<TextSourceComponent>(entity);
         TextSinkComponent& sink = manager.getComponent<TextSinkComponent>(entity);

@@ -17,7 +17,7 @@ class InputHandlerSystem : public ecs::ISystem_<InputHandlerSystem>
     public:
         InputHandlerSystem(ecs::Manager& aManager, Event::EventManager& anEventManager);
         void processEvent(const Event::IEvent& anEvent);
-        void Execute(float time_step) const override;
+        void Execute(float time_step) override;
 
     private:
         EventMap eventMap;

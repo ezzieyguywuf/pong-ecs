@@ -18,16 +18,16 @@ SimpleCollisionSystem::SimpleCollisionSystem(ecs::Manager& aManager, unsigned in
     }
 }
 
-void SimpleCollisionSystem::Execute(float time_step) const
+void SimpleCollisionSystem::Execute(float time_step)
 {
     std::set<ecs::Entity> found;
     ecs::Entities allEntities = manager.getEntities(this->getComponentIDs());
-    for (auto entity1 : allEntities)
+    for (auto& entity1 : allEntities)
     {
         if (found.find(entity1) != found.end()){
             continue;
         }
-        for (auto entity2 : allEntities)
+        for (auto& entity2 : allEntities)
         {
             if (entity1 == entity2 || found.find(entity2) != found.end()){
                 continue;

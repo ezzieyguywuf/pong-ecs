@@ -13,10 +13,10 @@ RenderSystem::RenderSystem(ecs::Manager& aManager, sf::RenderWindow* target)
     }
 }
 
-void RenderSystem::Execute(float time_step) const
+void RenderSystem::Execute(float time_step)
 {
     rTarget->clear();
-    for (auto entity : manager.getEntities(this->getComponentIDs()))
+    for (auto& entity : manager.getEntities(this->getComponentIDs()))
     {
         RenderableComponent& target = manager.getComponent<RenderableComponent>(entity);
         PositionComponent& pos = manager.getComponent<PositionComponent>(entity);

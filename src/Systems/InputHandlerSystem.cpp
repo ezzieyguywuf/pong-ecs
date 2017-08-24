@@ -24,9 +24,9 @@ void InputHandlerSystem::processEvent(const Event::IEvent& anEvent)
     eventMap[inpEvent.key] = inpEvent.pressed;
 }
 
-void InputHandlerSystem::Execute(float time_step) const
+void InputHandlerSystem::Execute(float time_step)
 {
-    for (auto entity : manager.getEntities(this->getComponentIDs()))
+    for (auto& entity : manager.getEntities(this->getComponentIDs()))
     {
         SpeedComponent& speed = manager.getComponent<SpeedComponent>(entity);
         MovableComponent& move = manager.getComponent<MovableComponent>(entity);

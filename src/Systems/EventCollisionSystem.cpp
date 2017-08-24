@@ -32,13 +32,13 @@ void EventCollisionSystem::processMove(const Event::IEvent& anEvent)
         colliders.push_back(moveEvent.entity);
 }
 
-void EventCollisionSystem::processBounce( const ecs::Entity collider, const ecs::Entity collidee) const
+void EventCollisionSystem::processBounce( const ecs::Entity& collider, const ecs::Entity& collidee) const
 {
     if (!manager.hasComponent(collidee, WallComponent::sGetID()))
         return;
     ecs::ComponentIDs checkIDs = {BounceComponent::sGetID(), SpeedComponent::sGetID()};
     if (manager.hasComponents(collider, checkIDs)){
-        auto wall  = manager.getComponent<WallComponent>(collidee);
+        auto& wall  = manager.getComponent<WallComponent>(collidee);
         auto& speed = manager.getComponent<SpeedComponent>(collider);
         if (wall.vert)
             speed.x *= -1;
@@ -47,17 +47,20 @@ void EventCollisionSystem::processBounce( const ecs::Entity collider, const ecs:
     }
 }
 
-void EventCollisionSystem::Execute(float time_step) const
+void EventCollisionSystem::Execute(float time_step)
 {
     // check collidable entities against moved entities
-    for (const ecs::Entity moved : colliders){
-        for (const ecs::Entity collidable : manager.getEntities(this->getComponentIDs())){
+    //for (const ecs::Entity& moved : colliders){
+    while (!colliders.empty()){
+        const ecs::Entity& moved = colliders.back();
+        colliders.pop_back();
+        for (const ecs::Entity& collidable : manager.getEntities(this->getComponentIDs())){
             if (moved == collidable)
                 continue;
-            auto pos1  = manager.getComponent<PositionComponent>(moved);
-            auto pos2  = manager.getComponent<PositionComponent>(collidable);
-            auto bbox1 = manager.getComponent<BoundingBoxComponent>(moved);
-            auto bbox2 = manager.getComponent<BoundingBoxComponent>(collidable);
+            auto& pos1  = manager.getComponent<PositionComponent>(moved);
+            auto& pos2  = manager.getComponent<PositionComponent>(collidable);
+            auto& bbox1 = manager.getComponent<BoundingBoxComponent>(moved);
+            auto& bbox2 = manager.getComponent<BoundingBoxComponent>(collidable);
             if ((pos1.x <= pos2.x + bbox2.width) &&
                 (pos1.x + bbox1.width >= pos2.x) &&
                 (pos1.y <= pos2.y + bbox2.height) &&
