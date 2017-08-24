@@ -50,6 +50,15 @@ bool Manager::hasComponent(const Entity entity, const ComponentID id) const
     return false;
 }
 
+bool Manager::hasComponents(const Entity entity, const ComponentIDs ids) const
+{
+    for (auto id : ids){
+        if (!this->hasComponent(entity, id))
+            return false;
+    }
+    return true;
+}
+
 //void Manager::addComponents(const Entity entity, std::vector<std::unique_ptr<IComponent>> components)
 //{
     //for (auto component : components)

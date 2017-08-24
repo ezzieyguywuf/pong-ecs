@@ -6,9 +6,7 @@
 class CollidableComponent : public ecs::IComponent_<CollidableComponent>
 {
     public:
-        CollidableComponent();
-
-        bool hasCollided;
+        CollidableComponent(){};
 };
 
 #endif //CollidableComponent_HEADER

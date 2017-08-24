@@ -11,6 +11,9 @@
 #include <Components/TextSinkComponent.h>
 #include <Components/TextSourceComponent.h>
 #include <Components/MovableComponent.h>
+#include <Components/CollidableComponent.h>
+#include <Components/WallComponent.h>
+#include <Components/BounceComponent.h>
 
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
@@ -33,6 +36,9 @@ class ComponentFactory
         ptrIComponent makeTextSink(ecs::Entity entity);
         ptrIComponent makeTextSource(ecs::Entity entity);
         ptrIComponent makeMovable(Key up, Key down, Key left, Key right);
+        ptrIComponent makeCollidable();
+        ptrIComponent makeWall(bool vert=true);
+        ptrIComponent makeBounce();
 };
 
 #endif //ComponentFactory_HEADER

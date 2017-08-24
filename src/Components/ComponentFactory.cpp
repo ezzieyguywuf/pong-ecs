@@ -56,3 +56,18 @@ ptrIComponent ComponentFactory::makeMovable(Key up, Key down, Key left, Key righ
 {
     return ptrIComponent(new MovableComponent(up, down, left, right));
 }
+
+ptrIComponent ComponentFactory::makeCollidable()
+{
+    return ptrIComponent(new CollidableComponent());
+}
+
+ptrIComponent ComponentFactory::makeWall(bool vert)
+{
+    return ptrIComponent(new WallComponent(vert));
+}
+
+ptrIComponent ComponentFactory::makeBounce()
+{
+    return ptrIComponent(new BounceComponent());
+}

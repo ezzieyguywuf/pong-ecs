@@ -27,7 +27,6 @@ void PhysicsSystem::Execute(float time_step) const
 
         position.x += speed.x ;//* time_step;
         position.y += speed.y ;//* time_step;
-        if (manager.hasComponent(entity, BoundingBoxComponent::sGetID()))
-            eventManager.broadcast(Event::Move(entity));
+        eventManager.broadcast(Event::Move(entity));
     }
 }

@@ -8,6 +8,7 @@
 #include <Systems/EventCollisionSystem.h>
 #include <Systems/TextSinkRenderSystem.h>
 #include <Systems/InputHandlerSystem.h>
+#include <Systems/EventCollisionSystem.h>
 
 // local lib
 #include <SimpleECS/ISystem.h>
@@ -38,33 +39,47 @@ void createEntities(ecs::Manager& manager, sf::RenderWindow& rWindow, sf::Font& 
         manager.addComponent(ball, move(factory.makePosition(WIDTH/2.0, 80)));
         manager.addComponent(ball, move(factory.makeSpeed(0,-1.5)));
         manager.addComponent(ball, move(factory.makeBoundingBox(20, 20)));
+        manager.addComponent(ball, move(factory.makeCollidable()));
+        manager.addComponent(ball, move(factory.makeBounce()));
     ecs::Entity ball2 = manager.makeEntity();
         manager.addComponent(ball2, move(factory.makeCircleShape(10)));
         manager.addComponent(ball2, move(factory.makePosition(WIDTH/2.0 - 80, 80)));
         manager.addComponent(ball2, move(factory.makeSpeed(0.0,0.0)));
         manager.addComponent(ball2, move(factory.makeBoundingBox(20, 20)));
         manager.addComponent(ball2, move(factory.makeMovable(Key::Up, Key::Down, Key::Left, Key::Right)));
+        manager.addComponent(ball2, move(factory.makeCollidable()));
+        manager.addComponent(ball2, move(factory.makeBounce()));
     ecs::Entity ball3 = manager.makeEntity();
         manager.addComponent(ball3, move(factory.makeCircleShape(10)));
         manager.addComponent(ball3, move(factory.makePosition(WIDTH/2.0 + 80, 80)));
         manager.addComponent(ball3, move(factory.makeSpeed(0,-1)));
         manager.addComponent(ball3, move(factory.makeBoundingBox(20, 20)));
+        manager.addComponent(ball3, move(factory.makeCollidable()));
+        manager.addComponent(ball3, move(factory.makeBounce()));
     ecs::Entity topWall = manager.makeEntity();
         manager.addComponent(topWall, move(factory.makeRectangleShape(WIDTH,10)));
         manager.addComponent(topWall, move(factory.makePosition(0.0, 0.0)));
         manager.addComponent(topWall, move(factory.makeBoundingBox(WIDTH, 10)));
+        manager.addComponent(topWall, move(factory.makeCollidable()));
+        manager.addComponent(topWall, move(factory.makeWall(false)));
     ecs::Entity botWall = manager.makeEntity();
         manager.addComponent(botWall, move(factory.makeRectangleShape(WIDTH,10)));
         manager.addComponent(botWall, move(factory.makePosition(0.0, HEIGHT-10)));
         manager.addComponent(botWall, move(factory.makeBoundingBox(WIDTH, 10)));
+        manager.addComponent(botWall, move(factory.makeCollidable()));
+        manager.addComponent(botWall, move(factory.makeWall(false)));
     ecs::Entity lftWall = manager.makeEntity();
         manager.addComponent(lftWall, move(factory.makeRectangleShape(10,HEIGHT)));
         manager.addComponent(lftWall, move(factory.makePosition(0.0, 0.0)));
         manager.addComponent(lftWall, move(factory.makeBoundingBox(10, HEIGHT)));
+        manager.addComponent(lftWall, move(factory.makeCollidable()));
+        manager.addComponent(lftWall, move(factory.makeWall()));
     ecs::Entity rgtWall = manager.makeEntity();
         manager.addComponent(rgtWall, move(factory.makeRectangleShape(10,HEIGHT)));
         manager.addComponent(rgtWall, move(factory.makePosition(WIDTH-10, 0.0)));
         manager.addComponent(rgtWall, move(factory.makeBoundingBox(10, HEIGHT)));
+        manager.addComponent(rgtWall, move(factory.makeCollidable()));
+        manager.addComponent(rgtWall, move(factory.makeWall()));
     ecs::Entity posText = manager.makeEntity();
         manager.addComponent(posText, move(factory.makeTextShape(font)));
         manager.addComponent(posText, move(factory.makePosition(10.0, 10.0)));

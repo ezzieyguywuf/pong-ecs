@@ -6,11 +6,14 @@
 #include <Events/IEvent.h>
 #include <Events/EventManager.h>
 
+#include <array>
+
 class EventCollisionSystem : public ecs::ISystem_<EventCollisionSystem>
 {
     public:
         EventCollisionSystem(ecs::Manager& aManager, Event::EventManager& anEventManager);
-        void processEvent(const Event::IEvent& anEvent);
+        void processMove(const Event::IEvent& anEvent);
+        void processBounce(const ecs::Entity collider, const ecs::Entity collidee) const;
         void Execute(float time_step) const override;
 
     private:

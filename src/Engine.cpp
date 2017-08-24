@@ -26,7 +26,7 @@ void Engine::start()
         elapsed = clock.getElapsedTime().asMicroseconds();
         clock.restart();
         accumulated += elapsed;
-        if (lastUserInput.getElapsedTime().asMilliseconds() > 500){
+        if (lastUserInput.getElapsedTime().asSeconds() > 30 || !myWindow.hasFocus()){
             sf::sleep(sf::milliseconds(100));
         }
 

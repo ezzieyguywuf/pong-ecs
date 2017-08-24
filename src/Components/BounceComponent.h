@@ -6,7 +6,7 @@
 class BounceComponent : public ecs::IComponent_<BounceComponent>
 {
     public:
-        BounceComponent();
+        BounceComponent(){};
 };
 
 #endif //BounceComponent_HEADER
