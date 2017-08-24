@@ -27,6 +27,7 @@ void PhysicsSystem::Execute(float time_step)
 
         position.x += speed.x ;//* time_step;
         position.y += speed.y ;//* time_step;
-        eventManager.broadcast(Event::Move(entity));
+        if (speed.x !=0 || speed.y != 0)
+            eventManager.broadcast(Event::Move(entity));
     }
 }

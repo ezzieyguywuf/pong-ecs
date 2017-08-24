@@ -36,8 +36,7 @@ void EventCollisionSystem::processBounce( const ecs::Entity& collider, const ecs
 {
     if (!manager.hasComponent(collidee, WallComponent::sGetID()))
         return;
-    ecs::ComponentIDs checkIDs = {BounceComponent::sGetID(), SpeedComponent::sGetID()};
-    if (manager.hasComponents(collider, checkIDs)){
+    if (manager.hasComponent(collider, SpeedComponent::sGetID())){
         auto& wall  = manager.getComponent<WallComponent>(collidee);
         auto& speed = manager.getComponent<SpeedComponent>(collider);
         if (wall.vert)
@@ -65,7 +64,32 @@ void EventCollisionSystem::Execute(float time_step)
                 (pos1.x + bbox1.width >= pos2.x) &&
                 (pos1.y <= pos2.y + bbox2.height) &&
                 (pos1.y + bbox1.height >= pos2.y)){
-                this->processBounce(moved, collidable);
+                if (manager.hasComponent(moved, BounceComponent::sGetID()))
+                    this->processBounce(moved, collidable);
+                else
+                {
+                    if (manager.hasComponent(moved, SpeedComponent::sGetID())){
+                        auto& speed = manager.getComponent<SpeedComponent>(moved);
+                        if (pos1.x <= pos2.x + bbox2.width &&
+                            pos1.x >= pos2.x){
+                            // collision in x-direction
+                            if (speed.x != 0){
+                                if (pos1.x > pos2.x)
+                                    pos1.x += -1 * (pos1.x - pos2.x)/speed.x;
+                                else
+                                    pos1.x += -1 * (pos2.x - pos1.x)/speed.x;
+                            }
+                        }
+                        if (pos1.y <= pos2.y + bbox2.height &&
+                            pos1.y >= pos2.y){
+                            // collision in x-direction
+                            if (pos1.y > pos2.y)
+                                pos1.y += -1 * (pos1.y - pos2.y)/speed.y;
+                            else
+                                pos1.y += -1 * (pos2.y - pos1.y)/speed.y;
+                        }
+                    }
+                }
             }
         }
     }
