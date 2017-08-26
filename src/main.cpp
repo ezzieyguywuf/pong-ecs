@@ -39,10 +39,12 @@ void createEntities(ecs::Manager& manager, sf::RenderWindow& rWindow, sf::Font& 
     ecs::Entity ball = manager.makeEntity();
         manager.addComponent(ball, move(factory.makeCircleShape(10)));
         manager.addComponent(ball, move(factory.makePosition(WIDTH/2.0, HEIGHT/2.0)));
-        manager.addComponent(ball, move(factory.makeSpeed(200, ydist(rand))));
+        manager.addComponent(ball, move(factory.makeSpeed(200, 0)));
+        //manager.addComponent(ball, move(factory.makeSpeed(200, ydist(rand))));
         manager.addComponent(ball, move(factory.makeBoundingBox(20, 20)));
         manager.addComponent(ball, move(factory.makeCollidable()));
         manager.addComponent(ball, move(factory.makeBounce()));
+        manager.addComponent(ball, move(factory.makeBall()));
     //ecs::Entity ball2 = manager.makeEntity();
         //manager.addComponent(ball2, move(factory.makeCircleShape(10)));
         //manager.addComponent(ball2, move(factory.makePosition(WIDTH/2.0 - 80, 80)));
@@ -57,7 +59,7 @@ void createEntities(ecs::Manager& manager, sf::RenderWindow& rWindow, sf::Font& 
         manager.addComponent(lPaddle, move(factory.makeCollidable()));
         manager.addComponent(lPaddle, move(factory.makeMovable(Key::Comma, Key::O, Key::Unknown, Key::Unknown)));
         manager.addComponent(lPaddle, move(factory.makeSpeed(0.0, 0.0)));
-        manager.addComponent(lPaddle, move(factory.makeWall(true)));
+        manager.addComponent(lPaddle, move(factory.makePaddle()));
     ecs::Entity rPaddle = manager.makeEntity();
         manager.addComponent(rPaddle, move(factory.makeRectangleShape(10,80)));
         manager.addComponent(rPaddle, move(factory.makePosition(WIDTH - 25.0, HEIGHT/2.0 - 40)));
@@ -65,7 +67,7 @@ void createEntities(ecs::Manager& manager, sf::RenderWindow& rWindow, sf::Font& 
         manager.addComponent(rPaddle, move(factory.makeCollidable()));
         manager.addComponent(rPaddle, move(factory.makeMovable(Key::C, Key::T, Key::Unknown, Key::Unknown)));
         manager.addComponent(rPaddle, move(factory.makeSpeed(0.0, 0.0)));
-        manager.addComponent(rPaddle, move(factory.makeWall(true)));
+        manager.addComponent(rPaddle, move(factory.makePaddle()));
     ecs::Entity topWall = manager.makeEntity();
         manager.addComponent(topWall, move(factory.makeRectangleShape(WIDTH,10)));
         manager.addComponent(topWall, move(factory.makePosition(0.0, 0.0)));

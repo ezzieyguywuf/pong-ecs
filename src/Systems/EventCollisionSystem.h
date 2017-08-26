@@ -13,7 +13,8 @@ class EventCollisionSystem : public ecs::ISystem_<EventCollisionSystem>
     public:
         EventCollisionSystem(ecs::Manager& aManager, Event::EventManager& anEventManager);
         void processMove(const Event::IEvent& anEvent);
-        void processBounce(const ecs::Entity& collider, const ecs::Entity& collidee) const;
+        void processBallBounce(const ecs::Entity& collider, const ecs::Entity& collidee) const;
+        void processPaddleCollision(const ecs::Entity& collider, const ecs::Entity& collidee) const;
         void Execute(float time_step) override;
 
     private:

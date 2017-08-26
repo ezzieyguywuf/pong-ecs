@@ -67,7 +67,17 @@ ptrIComponent ComponentFactory::makeWall(bool vert)
     return ptrIComponent(new WallComponent(vert));
 }
 
+ptrIComponent ComponentFactory::makePaddle()
+{
+    return ptrIComponent(new PaddleComponent());
+}
+
 ptrIComponent ComponentFactory::makeBounce()
 {
     return ptrIComponent(new BounceComponent());
+}
+
+ptrIComponent ComponentFactory::makeBall()
+{
+    return ptrIComponent(new BallComponent());
 }

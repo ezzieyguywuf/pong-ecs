@@ -32,7 +32,7 @@ void InputHandlerSystem::Execute(float time_step)
         MovableComponent& move = manager.getComponent<MovableComponent>(entity);
 
         if (eventMap.find(move.up) != eventMap.end()){
-            if (eventMap.at(move.up) && speed.y > -750){
+            if (eventMap.at(move.up) && speed.y > -575){
                 speed.y -= 25;
             }
             else if (eventMap.at(move.up) == false && speed.y < 0){
@@ -40,7 +40,7 @@ void InputHandlerSystem::Execute(float time_step)
             }
         }
         if (eventMap.find(move.down) != eventMap.end()){
-            if (eventMap.at(move.down) && speed.y < 750){
+            if (eventMap.at(move.down) && speed.y < 575){
                 speed.y += 25;
             }
             else if (eventMap.at(move.down) == false && speed.y > 0){
@@ -48,7 +48,7 @@ void InputHandlerSystem::Execute(float time_step)
             }
         }
         if (eventMap.find(move.left) != eventMap.end()){
-            if (eventMap.at(move.left) && speed.x > -750){
+            if (eventMap.at(move.left) && speed.x > -575){
                 speed.x -= 25;
             }
             else if (eventMap.at(move.left) == false && speed.x < 0){
@@ -56,7 +56,7 @@ void InputHandlerSystem::Execute(float time_step)
             }
         }
         if (eventMap.find(move.right) != eventMap.end()){
-            if (eventMap.at(move.right) && speed.x < 750){
+            if (eventMap.at(move.right) && speed.x < 575){
                 speed.x += 25;
             }
             else if (eventMap.at(move.right) == false && speed.x > 0){

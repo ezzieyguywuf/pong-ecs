@@ -14,6 +14,8 @@
 #include <Components/CollidableComponent.h>
 #include <Components/WallComponent.h>
 #include <Components/BounceComponent.h>
+#include <Components/PaddleComponent.h>
+#include <Components/BallComponent.h>
 
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
@@ -38,7 +40,9 @@ class ComponentFactory
         ptrIComponent makeMovable(Key up, Key down, Key left, Key right);
         ptrIComponent makeCollidable();
         ptrIComponent makeWall(bool vert=true);
+        ptrIComponent makePaddle();
         ptrIComponent makeBounce();
+        ptrIComponent makeBall();
 };
 
 #endif //ComponentFactory_HEADER
