@@ -13,6 +13,7 @@ class RenderableComponent : public ecs::IComponent_<RenderableComponent>
         RenderableComponent(sf::Font& aFont)
             : text(new sf::Text()){
                 text->setFont(aFont);
+                text->setCharacterSize(10);
             }
 
         std::unique_ptr<sf::Shape> shape;

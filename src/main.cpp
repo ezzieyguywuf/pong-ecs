@@ -37,7 +37,7 @@ void createEntities(ecs::Manager& manager, sf::RenderWindow& rWindow, sf::Font& 
     ecs::Entity ball = manager.makeEntity();
         manager.addComponent(ball, move(factory.makeCircleShape(10)));
         manager.addComponent(ball, move(factory.makePosition(WIDTH/2.0, HEIGHT/2.0)));
-        manager.addComponent(ball, move(factory.makeSpeed(10, 0.0)));
+        manager.addComponent(ball, move(factory.makeSpeed(50, 0.0)));
         manager.addComponent(ball, move(factory.makeBoundingBox(20, 20)));
         manager.addComponent(ball, move(factory.makeCollidable()));
         manager.addComponent(ball, move(factory.makeBounce()));
@@ -91,10 +91,27 @@ void createEntities(ecs::Manager& manager, sf::RenderWindow& rWindow, sf::Font& 
     ecs::Entity posText = manager.makeEntity();
         manager.addComponent(posText, move(factory.makeTextShape(font)));
         manager.addComponent(posText, move(factory.makePosition(10.0, 10.0)));
-        manager.addComponent(posText, move(factory.makeSpeed(0.0, 0.0)));
+    ecs::Entity pos2Text = manager.makeEntity();
+        manager.addComponent(pos2Text, move(factory.makeTextShape(font)));
+        manager.addComponent(pos2Text, move(factory.makePosition(10.0, 20.0)));
+    ecs::Entity pos3Text = manager.makeEntity();
+        manager.addComponent(pos3Text, move(factory.makeTextShape(font)));
+        manager.addComponent(pos3Text, move(factory.makePosition(10.0, 30.0)));
+    ecs::Entity pos4Text = manager.makeEntity();
+        manager.addComponent(pos4Text, move(factory.makeTextShape(font)));
+        manager.addComponent(pos4Text, move(factory.makePosition(10.0, 40.0)));
     ecs::Entity showText = manager.makeEntity();
         manager.addComponent(showText, move(factory.makeTextSink(posText)));
         manager.addComponent(showText, move(factory.makeTextSource(ball2)));
+    ecs::Entity show2Text = manager.makeEntity();
+        manager.addComponent(show2Text, move(factory.makeTextSink(pos2Text)));
+        manager.addComponent(show2Text, move(factory.makeTextSource(lPaddle)));
+    ecs::Entity show3Text = manager.makeEntity();
+        manager.addComponent(show3Text, move(factory.makeTextSink(pos3Text)));
+        manager.addComponent(show3Text, move(factory.makeTextSource(rPaddle)));
+    ecs::Entity show4Text = manager.makeEntity();
+        manager.addComponent(show4Text, move(factory.makeTextSink(pos4Text)));
+        manager.addComponent(show4Text, move(factory.makeTextSource(ball)));
 }
 
 int main(int argc, char ** argv) {
@@ -104,7 +121,7 @@ int main(int argc, char ** argv) {
     // Instantiate our game engine
     sf::RenderWindow rWindow(sf::VideoMode(WIDTH, HEIGHT), "SFML Pong Demo");
     //rWindow.setFramerateLimit(60);
-    Engine engine(rWindow, 30);
+    Engine engine(rWindow, 60);
 
     // need a font object
     sf::Font font;
