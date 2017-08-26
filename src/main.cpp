@@ -22,6 +22,7 @@
 // system lib
 #include <memory>
 #include <iostream>
+#include <random>
 
 float WIDTH = 640;
 float HEIGHT = 480;
@@ -29,25 +30,26 @@ float HEIGHT = 480;
 using std::move;
 using Key = sf::Keyboard::Key;
 
-void createEntities(ecs::Manager& manager, sf::RenderWindow& rWindow, sf::Font& font)
+void createEntities(ecs::Manager& manager, sf::RenderWindow& rWindow, sf::Font& font, std::mt19937& rand)
 {
+    std::uniform_int_distribution<int> ydist(-100, 100);
     ComponentFactory factory;
     // Make our entities and add the appropriate components.
     // NOTE: this could be pulled, theoretically, from some sort of plain text file.
     ecs::Entity ball = manager.makeEntity();
         manager.addComponent(ball, move(factory.makeCircleShape(10)));
         manager.addComponent(ball, move(factory.makePosition(WIDTH/2.0, HEIGHT/2.0)));
-        manager.addComponent(ball, move(factory.makeSpeed(50, 0.0)));
+        manager.addComponent(ball, move(factory.makeSpeed(200, ydist(rand))));
         manager.addComponent(ball, move(factory.makeBoundingBox(20, 20)));
         manager.addComponent(ball, move(factory.makeCollidable()));
         manager.addComponent(ball, move(factory.makeBounce()));
-    ecs::Entity ball2 = manager.makeEntity();
-        manager.addComponent(ball2, move(factory.makeCircleShape(10)));
-        manager.addComponent(ball2, move(factory.makePosition(WIDTH/2.0 - 80, 80)));
-        manager.addComponent(ball2, move(factory.makeSpeed(0.0,0.0)));
-        manager.addComponent(ball2, move(factory.makeBoundingBox(20, 20)));
-        manager.addComponent(ball2, move(factory.makeMovable(Key::Up, Key::Down, Key::Left, Key::Right)));
-        manager.addComponent(ball2, move(factory.makeCollidable()));
+    //ecs::Entity ball2 = manager.makeEntity();
+        //manager.addComponent(ball2, move(factory.makeCircleShape(10)));
+        //manager.addComponent(ball2, move(factory.makePosition(WIDTH/2.0 - 80, 80)));
+        //manager.addComponent(ball2, move(factory.makeSpeed(0.0,0.0)));
+        //manager.addComponent(ball2, move(factory.makeBoundingBox(20, 20)));
+        //manager.addComponent(ball2, move(factory.makeMovable(Key::Up, Key::Down, Key::Left, Key::Right)));
+        //manager.addComponent(ball2, move(factory.makeCollidable()));
     ecs::Entity lPaddle = manager.makeEntity();
         manager.addComponent(lPaddle, move(factory.makeRectangleShape(10,80)));
         manager.addComponent(lPaddle, move(factory.makePosition(15.0, HEIGHT/2.0 - 40)));
@@ -100,9 +102,9 @@ void createEntities(ecs::Manager& manager, sf::RenderWindow& rWindow, sf::Font& 
     ecs::Entity pos4Text = manager.makeEntity();
         manager.addComponent(pos4Text, move(factory.makeTextShape(font)));
         manager.addComponent(pos4Text, move(factory.makePosition(10.0, 40.0)));
-    ecs::Entity showText = manager.makeEntity();
-        manager.addComponent(showText, move(factory.makeTextSink(posText)));
-        manager.addComponent(showText, move(factory.makeTextSource(ball2)));
+    //ecs::Entity showText = manager.makeEntity();
+        //manager.addComponent(showText, move(factory.makeTextSink(posText)));
+        //manager.addComponent(showText, move(factory.makeTextSource(ball2)));
     ecs::Entity show2Text = manager.makeEntity();
         manager.addComponent(show2Text, move(factory.makeTextSink(pos2Text)));
         manager.addComponent(show2Text, move(factory.makeTextSource(lPaddle)));
@@ -115,6 +117,10 @@ void createEntities(ecs::Manager& manager, sf::RenderWindow& rWindow, sf::Font& 
 }
 
 int main(int argc, char ** argv) {
+    // this will be used to generate random numbers
+    std::random_device rd;
+    std::mt19937 randomNumbers(rd());
+
     ecs::Manager manager;
     Event::EventManager eventManager;
 
@@ -131,7 +137,7 @@ int main(int argc, char ** argv) {
     }
 
     // make our entities and add components
-    createEntities(manager, rWindow, font);
+    createEntities(manager, rWindow, font, randomNumbers);
 
     // add systems to the game engine
     engine.addSystem(
