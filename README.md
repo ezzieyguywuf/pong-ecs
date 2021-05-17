@@ -1,6 +1,12 @@
-![](https://github.com/ezzieyguywuf/gif_demos/blob/master/20210517_Pong_ECS_optimized.gif)
+<p align="center">
+  <img src="https://github.com/ezzieyguywuf/gif_demos/blob/master/20210517_Pong_ECS_optimized.gif" />
+</p>
+
+
 `w` and `s` for player 1
+
 `i` and `k` for player 2
+
 Unfocus window to pause (also gives your CPU a break since the game engine runs
 in real time)
 
