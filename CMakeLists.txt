@@ -12,17 +12,8 @@ set(LIBRARY_OUTPUT_PATH ${CMAKE_BINARY_DIR}/lib)
 
 project(pong)
 
-#set(SFML_DIR "/home/wolfie/Program/FunProjects/SFML-2.4.2/")
-set(SFML_DIR "/usr/include/SFML")
-#set(JPEG_DIR "/home/wolfie/Program/FunProjects/libjpeg-turbo/build")
+find_package(SFML COMPONENTS graphics window system REQUIRED)
 
-include_directories(
-    #"${SFML_DIR}/include"
-    "${SFML_DIR}"
-    "src"
-)
-link_directories(
-    #"${SFML_DIR}/lib"
-)
+include_directories("src")
 
 add_subdirectory("src")
