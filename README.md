@@ -31,13 +31,13 @@ Some of the main features of this project:
   favourite adjectives)
 - Since everything is an Entity, we have some pretty specific systems to operate
   on them
-    - `InputHandlerSystem`[2] manages input from the user - two players can play
+    - [`InputHandlerSystem`][2] manages input from the user - two players can play
       together!
-    - `PhysicsSystem`[3] manages momemtum, speed, drag
-    - `EventCollissionSystem`[4] reacts to broadcasted events from the PhysicsSystem,
+    - [`PhysicsSystem`][3] manages momemtum, speed, drag
+    - [`EventCollissionSystem`][4] reacts to broadcasted events from the PhysicsSystem,
       and figures out if things went "bump"
-    - `TextSinkRenderSystem`[5] is used to render text
-    - `RenderSystem`[6] is used to draw to the screen
+    - [`TextSinkRenderSystem`][5] is used to render text
+    - [`RenderSystem`][6] is used to draw to the screen
 
 [1]: https://www.gafferongames.com/post/fix_your_timestep/
 [2]: src/Systems/InputHandlerSystem.cpp
